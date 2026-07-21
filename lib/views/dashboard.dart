@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_application_2/data/tenant_data.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -10,6 +12,61 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
+    // Get the same tenant data used by the Tenants Page
+    final tenantData = Provider.of<TenantData>(context);
+
+    // Get all tenants
+    final tenants = tenantData.tenants;
+
+    // ------------------------------------------------------------
+    // CALCULATE DASHBOARD DATA FROM TENANT DATA
+    // ------------------------------------------------------------
+
+    // Total number of tenants
+    final totalTenants = tenants.length;
+
+    // Active tenants
+    final activeTenants = tenants
+        .where(
+          (tenant) => tenant['status'] == 'Active',
+        )
+        .length;
+
+    // Total monthly rent from active tenants
+    final monthlyRevenue = tenants
+        .where(
+          (tenant) => tenant['status'] == 'Active',
+        )
+        .fold(
+          0,
+          (sum, tenant) =>
+              sum + (tenant['rent'] as int),
+        );
+
+    // Total rent that has been paid
+    final paidAmount = tenants
+        .where(
+          (tenant) =>
+              tenant['paymentStatus'] == 'Paid',
+        )
+        .fold(
+          0,
+          (sum, tenant) =>
+              sum + (tenant['rent'] as int),
+        );
+
+    // Total pending rent
+    final pendingAmount = tenants
+        .where(
+          (tenant) =>
+              tenant['paymentStatus'] == 'Pending',
+        )
+        .fold(
+          0,
+          (sum, tenant) =>
+              sum + (tenant['rent'] as int),
+        );
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
 
@@ -24,9 +81,14 @@ class _DashboardState extends State<Dashboard> {
         padding: const EdgeInsets.all(16),
 
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment:
+              CrossAxisAlignment.start,
 
           children: [
+
+            // ------------------------------------------------
+            // WELCOME MESSAGE
+            // ------------------------------------------------
 
             const Text(
               "Good Afternoon 👋",
@@ -48,15 +110,19 @@ class _DashboardState extends State<Dashboard> {
 
             const SizedBox(height: 25),
 
+            // ------------------------------------------------
+            // DASHBOARD SUMMARY CARDS
+            // ------------------------------------------------
+
             Row(
               children: [
 
                 Expanded(
                   child: dashboardCard(
-                    "Houses",
-                    "24",
-                    Icons.home_work,
-                    Colors.blue,
+                    "Tenants",
+                    totalTenants.toString(),
+                    Icons.people,
+                    Colors.green,
                   ),
                 ),
 
@@ -64,10 +130,10 @@ class _DashboardState extends State<Dashboard> {
 
                 Expanded(
                   child: dashboardCard(
-                    "Tenants",
-                    "20",
-                    Icons.people,
-                    Colors.green,
+                    "Active Tenants",
+                    activeTenants.toString(),
+                    Icons.person_outline,
+                    Colors.blue,
                   ),
                 ),
 
@@ -81,10 +147,10 @@ class _DashboardState extends State<Dashboard> {
 
                 Expanded(
                   child: dashboardCard(
-                    "Revenue",
-                    "KSh 320K",
-                    Icons.attach_money,
-                    Colors.orange,
+                    "Rent Collected",
+                    "KSh $paidAmount",
+                    Icons.payments,
+                    Colors.green,
                   ),
                 ),
 
@@ -92,8 +158,8 @@ class _DashboardState extends State<Dashboard> {
 
                 Expanded(
                   child: dashboardCard(
-                    "Pending",
-                    "KSh 45K",
+                    "Pending Rent",
+                    "KSh $pendingAmount",
                     Icons.warning,
                     Colors.red,
                   ),
@@ -102,7 +168,27 @@ class _DashboardState extends State<Dashboard> {
               ],
             ),
 
+            const SizedBox(height: 15),
+
+            // ------------------------------------------------
+            // TOTAL MONTHLY RENT
+            // ------------------------------------------------
+
+            SizedBox(
+              width: double.infinity,
+              child: dashboardCard(
+                "Expected Monthly Rent",
+                "KSh $monthlyRevenue",
+                Icons.account_balance_wallet,
+                Colors.orange,
+              ),
+            ),
+
             const SizedBox(height: 30),
+
+            // ------------------------------------------------
+            // QUICK ACTIONS
+            // ------------------------------------------------
 
             const Text(
               "Quick Actions",
@@ -115,19 +201,34 @@ class _DashboardState extends State<Dashboard> {
             const SizedBox(height: 15),
 
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceAround,
+
               children: [
 
-                actionButton(Icons.person_add, "Tenant"),
+                actionButton(
+                  Icons.person_add,
+                  "Tenant",
+                ),
 
-                actionButton(Icons.payments, "Payment"),
+                actionButton(
+                  Icons.payments,
+                  "Payment",
+                ),
 
-                actionButton(Icons.build, "Repair"),
+                actionButton(
+                  Icons.build,
+                  "Repair",
+                ),
 
               ],
             ),
 
             const SizedBox(height: 30),
+
+            // ------------------------------------------------
+            // RECENT PAYMENTS
+            // ------------------------------------------------
 
             const Text(
               "Recent Payments",
@@ -139,26 +240,37 @@ class _DashboardState extends State<Dashboard> {
 
             const SizedBox(height: 15),
 
-            paymentTile(
-              "John Mwangi",
-              "House A1",
-              "KSh 15,000",
-              true,
-            ),
+            // Show tenants from TenantData
+            // instead of hard-coded names
 
-            paymentTile(
-              "Mary Wanjiku",
-              "House B2",
-              "KSh 15,000",
-              false,
-            ),
+            if (tenants.isEmpty)
+              const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(30),
+                  child: Text(
+                    "No tenants available.",
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              )
+            else
+              ...tenants.map(
+                (tenant) {
+                  final bool paid =
+                      tenant['paymentStatus'] ==
+                          'Paid';
 
-            paymentTile(
-              "Brian Otieno",
-              "House C4",
-              "KSh 18,000",
-              true,
-            ),
+                  return paymentTile(
+                    tenant['name'].toString(),
+                    "House ${tenant['house']}",
+                    "KSh ${tenant['rent']}",
+                    paid,
+                  );
+                },
+              ),
 
           ],
         ),
@@ -166,18 +278,27 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
+  // ------------------------------------------------------------
+  // DASHBOARD CARD
+  // ------------------------------------------------------------
+
   Widget dashboardCard(
-      String title,
-      String value,
-      IconData icon,
-      Color color) {
+    String title,
+    String value,
+    IconData icon,
+    Color color,
+  ) {
     return Card(
       elevation: 4,
+
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
+        borderRadius:
+            BorderRadius.circular(15),
       ),
+
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding:
+            const EdgeInsets.all(16),
 
         child: Column(
           children: [
@@ -194,7 +315,8 @@ class _DashboardState extends State<Dashboard> {
               value,
               style: const TextStyle(
                 fontSize: 22,
-                fontWeight: FontWeight.bold,
+                fontWeight:
+                    FontWeight.bold,
               ),
             ),
 
@@ -211,13 +333,23 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  Widget actionButton(IconData icon, String text) {
+  // ------------------------------------------------------------
+  // QUICK ACTION BUTTON
+  // ------------------------------------------------------------
+
+  Widget actionButton(
+    IconData icon,
+    String text,
+  ) {
     return Column(
       children: [
 
         CircleAvatar(
           radius: 28,
-          backgroundColor: Colors.blue.shade100,
+
+          backgroundColor:
+              Colors.blue.shade100,
+
           child: Icon(
             icon,
             color: Colors.blue,
@@ -232,36 +364,59 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
+  // ------------------------------------------------------------
+  // PAYMENT TILE
+  // ------------------------------------------------------------
+
   Widget paymentTile(
-      String tenant,
-      String house,
-      String amount,
-      bool paid) {
+    String tenant,
+    String house,
+    String amount,
+    bool paid,
+  ) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 12),
+      margin:
+          const EdgeInsets.only(
+        bottom: 12,
+      ),
 
       child: ListTile(
 
         leading: CircleAvatar(
-          backgroundColor: Colors.blue.shade100,
-          child: const Icon(Icons.person),
+          backgroundColor:
+              Colors.blue.shade100,
+
+          child: const Icon(
+            Icons.person,
+          ),
         ),
 
         title: Text(tenant),
 
-        subtitle: Text("$house\n$amount"),
+        subtitle: Text(
+          "$house\n$amount",
+        ),
 
         isThreeLine: true,
 
         trailing: Chip(
           backgroundColor:
-              paid ? Colors.green.shade100 : Colors.red.shade100,
+              paid
+                  ? Colors.green.shade100
+                  : Colors.red.shade100,
 
           label: Text(
-            paid ? "Paid" : "Pending",
+            paid
+                ? "Paid"
+                : "Pending",
+
             style: TextStyle(
-              color: paid ? Colors.green : Colors.red,
-              fontWeight: FontWeight.bold,
+              color: paid
+                  ? Colors.green
+                  : Colors.red,
+
+              fontWeight:
+                  FontWeight.bold,
             ),
           ),
         ),

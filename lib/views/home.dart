@@ -6,7 +6,7 @@ import 'package:flutter_application_2/views/bookingHistoy.dart';
 import 'package:flutter_application_2/views/dashboard.dart';
 import 'package:flutter_application_2/views/home.dart' as body;
 
-var screens = [Dashboard(), Bookedslots(), Availableslots(), BookingHistory()];
+var screens = [Dashboard(), TenantsPage(), RentPaymentsPage(), MaintenanceReports()];
 
 
   
