@@ -10,9 +10,19 @@ class TenantsPage extends StatefulWidget {
 }
 
 class _TenantsPageState extends State<TenantsPage> {
-  TextEditingController searchController = TextEditingController();
+  final TextEditingController searchController =
+      TextEditingController();
 
   List<Map<String, dynamic>> filteredTenants = [];
+
+  // ------------------------------------------------------------
+  // THEME COLORS
+  // ------------------------------------------------------------
+
+  static const Color primaryColor = Color(0xFF006978);
+  static const Color secondaryColor = Color(0xFF008FA3);
+  static const Color lightTeal = Color(0xFFE0F7FA);
+  static const Color backgroundColor = Color(0xFFF5F9FA);
 
   // ------------------------------------------------------------
   // INITIALIZE
@@ -32,6 +42,12 @@ class _TenantsPageState extends State<TenantsPage> {
         filteredTenants = List.from(tenantData.tenants);
       });
     });
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 
   // ------------------------------------------------------------
@@ -83,8 +99,9 @@ class _TenantsPageState extends State<TenantsPage> {
       context: context,
       builder: (context) {
         return Dialog(
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(24),
           ),
           child: Container(
             width: 550,
@@ -93,43 +110,60 @@ class _TenantsPageState extends State<TenantsPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ------------------------------------------------
                   // HEADER
-                  // ------------------------------------------------
-
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(12),
+                        width: 55,
+                        height: 55,
                         decoration: BoxDecoration(
-                          color: Colors.blue.shade50,
-                          borderRadius: BorderRadius.circular(12),
+                          color: lightTeal,
+                          borderRadius:
+                              BorderRadius.circular(16),
                         ),
-                        child: Icon(
-                          Icons.person_add_alt_1,
-                          color: Colors.blue.shade700,
+                        child: const Icon(
+                          Icons.person_add_alt_1_rounded,
+                          color: secondaryColor,
                           size: 28,
                         ),
                       ),
+
                       const SizedBox(width: 15),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Add New Tenant',
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
+
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Add New Tenant',
+                              style: TextStyle(
+                                fontSize: 23,
+                                fontWeight:
+                                    FontWeight.bold,
+                                color: Color(0xFF263238),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Enter tenant details below',
-                            style: TextStyle(
-                              color: Colors.grey,
+                            SizedBox(height: 5),
+                            Text(
+                              'Enter tenant details below',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                      ),
+
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.close_rounded,
+                          color: Colors.grey,
+                        ),
                       ),
                     ],
                   ),
@@ -139,7 +173,7 @@ class _TenantsPageState extends State<TenantsPage> {
                   _inputField(
                     controller: nameController,
                     label: 'Tenant Name',
-                    icon: Icons.person_outline,
+                    icon: Icons.person_outline_rounded,
                   ),
 
                   const SizedBox(height: 15),
@@ -167,17 +201,23 @@ class _TenantsPageState extends State<TenantsPage> {
                         child: _inputField(
                           controller: rentController,
                           label: 'Monthly Rent',
-                          icon: Icons.payments_outlined,
-                          keyboardType: TextInputType.number,
+                          icon:
+                              Icons.payments_outlined,
+                          keyboardType:
+                              TextInputType.number,
                         ),
                       ),
+
                       const SizedBox(width: 15),
+
                       Expanded(
                         child: _inputField(
                           controller: depositController,
                           label: 'Deposit Paid',
-                          icon: Icons.account_balance_wallet_outlined,
-                          keyboardType: TextInputType.number,
+                          icon: Icons
+                              .account_balance_wallet_outlined,
+                          keyboardType:
+                              TextInputType.number,
                         ),
                       ),
                     ],
@@ -189,17 +229,15 @@ class _TenantsPageState extends State<TenantsPage> {
                     controller: dateController,
                     label: 'Move-in Date',
                     hint: 'DD/MM/YYYY',
-                    icon: Icons.calendar_today_outlined,
+                    icon:
+                        Icons.calendar_today_outlined,
                   ),
 
                   const SizedBox(height: 30),
 
-                  // ------------------------------------------------
-                  // BUTTONS
-                  // ------------------------------------------------
-
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment:
+                        MainAxisAlignment.end,
                     children: [
                       TextButton(
                         onPressed: () {
@@ -217,9 +255,15 @@ class _TenantsPageState extends State<TenantsPage> {
 
                       ElevatedButton.icon(
                         onPressed: () {
-                          if (nameController.text.isNotEmpty &&
-                              phoneController.text.isNotEmpty &&
-                              houseController.text.isNotEmpty) {
+                          if (nameController
+                                  .text
+                                  .isNotEmpty &&
+                              phoneController
+                                  .text
+                                  .isNotEmpty &&
+                              houseController
+                                  .text
+                                  .isNotEmpty) {
                             final tenantData =
                                 Provider.of<TenantData>(
                               context,
@@ -227,48 +271,68 @@ class _TenantsPageState extends State<TenantsPage> {
                             );
 
                             tenantData.addTenant({
-                              'name': nameController.text,
-                              'phone': phoneController.text,
-                              'house': houseController.text,
+                              'name':
+                                  nameController.text,
+                              'phone':
+                                  phoneController.text,
+                              'house':
+                                  houseController.text,
                               'rent':
                                   int.tryParse(
-                                        rentController.text,
+                                        rentController
+                                            .text,
                                       ) ??
                                       0,
                               'deposit':
                                   int.tryParse(
-                                        depositController.text,
+                                        depositController
+                                            .text,
                                       ) ??
                                       0,
-                              'moveInDate': dateController.text,
+                              'moveInDate':
+                                  dateController.text,
                               'status': 'Active',
-
-                              // New tenant starts with pending rent
-                              'paymentStatus': 'Pending',
+                              'paymentStatus':
+                                  'Pending',
                               'paymentDate': '',
                               'paymentMethod': '',
-                              'transactionReference': '',
+                              'transactionReference':
+                                  '',
                             });
 
                             setState(() {
                               filteredTenants =
-                                  List.from(tenantData.tenants);
+                                  List.from(
+                                tenantData.tenants,
+                              );
                             });
 
                             Navigator.pop(context);
                           }
                         },
-                        icon: const Icon(Icons.add),
-                        label: const Text('Add Tenant'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue.shade700,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 14,
+                        icon: const Icon(
+                          Icons.add_rounded,
+                        ),
+                        label:
+                            const Text('Add Tenant'),
+                        style:
+                            ElevatedButton.styleFrom(
+                          backgroundColor:
+                              primaryColor,
+                          foregroundColor:
+                              Colors.white,
+                          padding:
+                              const EdgeInsets
+                                  .symmetric(
+                            horizontal: 22,
+                            vertical: 15,
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                          shape:
+                              RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(
+                              12,
+                            ),
                           ),
                         ),
                       ),
@@ -318,49 +382,73 @@ class _TenantsPageState extends State<TenantsPage> {
       context: context,
       builder: (context) {
         return Dialog(
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(24),
           ),
           child: Container(
             width: 550,
             padding: const EdgeInsets.all(30),
             child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       Container(
-                        padding: const EdgeInsets.all(12),
+                        width: 55,
+                        height: 55,
                         decoration: BoxDecoration(
                           color: Colors.orange.shade50,
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius:
+                              BorderRadius.circular(16),
                         ),
                         child: Icon(
-                          Icons.edit_outlined,
-                          color: Colors.orange.shade700,
+                          Icons.edit_rounded,
+                          color:
+                              Colors.orange.shade700,
                           size: 28,
                         ),
                       ),
+
                       const SizedBox(width: 15),
-                      const Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Edit Tenant',
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
+
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Edit Tenant',
+                              style: TextStyle(
+                                fontSize: 23,
+                                fontWeight:
+                                    FontWeight.bold,
+                                color:
+                                    Color(0xFF263238),
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Update tenant information',
-                            style: TextStyle(
-                              color: Colors.grey,
+                            SizedBox(height: 5),
+                            Text(
+                              'Update tenant information',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                      ),
+
+                      IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.close_rounded,
+                          color: Colors.grey,
+                        ),
                       ),
                     ],
                   ),
@@ -370,7 +458,8 @@ class _TenantsPageState extends State<TenantsPage> {
                   _inputField(
                     controller: nameController,
                     label: 'Tenant Name',
-                    icon: Icons.person_outline,
+                    icon:
+                        Icons.person_outline_rounded,
                   ),
 
                   const SizedBox(height: 15),
@@ -397,17 +486,24 @@ class _TenantsPageState extends State<TenantsPage> {
                         child: _inputField(
                           controller: rentController,
                           label: 'Monthly Rent',
-                          icon: Icons.payments_outlined,
-                          keyboardType: TextInputType.number,
+                          icon:
+                              Icons.payments_outlined,
+                          keyboardType:
+                              TextInputType.number,
                         ),
                       ),
+
                       const SizedBox(width: 15),
+
                       Expanded(
                         child: _inputField(
-                          controller: depositController,
+                          controller:
+                              depositController,
                           label: 'Deposit Paid',
-                          icon: Icons.account_balance_wallet_outlined,
-                          keyboardType: TextInputType.number,
+                          icon: Icons
+                              .account_balance_wallet_outlined,
+                          keyboardType:
+                              TextInputType.number,
                         ),
                       ),
                     ],
@@ -418,13 +514,15 @@ class _TenantsPageState extends State<TenantsPage> {
                   _inputField(
                     controller: dateController,
                     label: 'Move-in Date',
-                    icon: Icons.calendar_today_outlined,
+                    icon:
+                        Icons.calendar_today_outlined,
                   ),
 
                   const SizedBox(height: 30),
 
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment:
+                        MainAxisAlignment.end,
                     children: [
                       TextButton(
                         onPressed: () {
@@ -451,41 +549,62 @@ class _TenantsPageState extends State<TenantsPage> {
                           tenantData.updateTenant(
                             tenant,
                             {
-                              'name': nameController.text,
-                              'phone': phoneController.text,
-                              'house': houseController.text,
+                              'name':
+                                  nameController.text,
+                              'phone':
+                                  phoneController.text,
+                              'house':
+                                  houseController.text,
                               'rent':
                                   int.tryParse(
-                                        rentController.text,
+                                        rentController
+                                            .text,
                                       ) ??
                                       0,
                               'deposit':
                                   int.tryParse(
-                                        depositController.text,
+                                        depositController
+                                            .text,
                                       ) ??
                                       0,
-                              'moveInDate': dateController.text,
+                              'moveInDate':
+                                  dateController.text,
                             },
                           );
 
                           setState(() {
                             filteredTenants =
-                                List.from(tenantData.tenants);
+                                List.from(
+                              tenantData.tenants,
+                            );
                           });
 
                           Navigator.pop(context);
                         },
-                        icon: const Icon(Icons.save_outlined),
-                        label: const Text('Save Changes'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue.shade700,
-                          foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 14,
+                        icon: const Icon(
+                          Icons.save_rounded,
+                        ),
+                        label: const Text(
+                          'Save Changes',
+                        ),
+                        style:
+                            ElevatedButton.styleFrom(
+                          backgroundColor:
+                              primaryColor,
+                          foregroundColor:
+                              Colors.white,
+                          padding:
+                              const EdgeInsets
+                                  .symmetric(
+                            horizontal: 22,
+                            vertical: 15,
                           ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
+                          shape:
+                              RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius.circular(
+                              12,
+                            ),
                           ),
                         ),
                       ),
@@ -511,14 +630,32 @@ class _TenantsPageState extends State<TenantsPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
+          backgroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(18),
+            borderRadius: BorderRadius.circular(20),
           ),
-          title: const Text(
-            'Remove Tenant?',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+          title: Row(
+            children: [
+              Container(
+                padding:
+                    const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.red.shade50,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.delete_outline_rounded,
+                  color: Colors.red.shade600,
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Text(
+                'Remove Tenant?',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
           content: Text(
             'Are you sure you want to remove ${tenant['name']} from House ${tenant['house']}?',
@@ -528,7 +665,12 @@ class _TenantsPageState extends State<TenantsPage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text('Cancel'),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Colors.grey,
+                ),
+              ),
             ),
 
             ElevatedButton(
@@ -543,25 +685,38 @@ class _TenantsPageState extends State<TenantsPage> {
 
                 setState(() {
                   filteredTenants =
-                      List.from(tenantData.tenants);
+                      List.from(
+                    tenantData.tenants,
+                  );
                 });
 
                 Navigator.pop(context);
 
-                ScaffoldMessenger.of(context).showSnackBar(
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(
                   SnackBar(
                     content: Text(
                       'Tenant removed. House ${tenant['house']} is now available.',
                     ),
-                    behavior: SnackBarBehavior.floating,
+                    behavior:
+                        SnackBarBehavior.floating,
+                    backgroundColor:
+                        primaryColor,
                   ),
                 );
               },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
+              style:
+                  ElevatedButton.styleFrom(
+                backgroundColor: Colors.red.shade600,
                 foregroundColor: Colors.white,
+                shape:
+                    RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.circular(10),
+                ),
               ),
-              child: const Text('Remove'),
+              child:
+                  const Text('Remove'),
             ),
           ],
         );
@@ -586,25 +741,33 @@ class _TenantsPageState extends State<TenantsPage> {
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        prefixIcon: Icon(icon),
+        prefixIcon: Icon(
+          icon,
+          color: secondaryColor,
+        ),
         filled: true,
-        fillColor: Colors.grey.shade50,
+        fillColor: const Color(0xFFF7FAFB),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+              BorderRadius.circular(12),
           borderSide: BorderSide(
-            color: Colors.grey.shade300,
+            color: Colors.grey.shade200,
           ),
         ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+        enabledBorder:
+            OutlineInputBorder(
+          borderRadius:
+              BorderRadius.circular(12),
           borderSide: BorderSide(
-            color: Colors.grey.shade300,
+            color: Colors.grey.shade200,
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(
-            color: Colors.blue.shade700,
+        focusedBorder:
+            OutlineInputBorder(
+          borderRadius:
+              BorderRadius.circular(12),
+          borderSide: const BorderSide(
+            color: secondaryColor,
             width: 2,
           ),
         ),
@@ -620,160 +783,225 @@ class _TenantsPageState extends State<TenantsPage> {
     Map<String, dynamic> tenant,
     int index,
   ) {
-    bool isActive = tenant['status'] == 'Active';
+    bool isActive =
+        tenant['status'] == 'Active';
 
-    return Card(
-      elevation: 0,
-      margin: const EdgeInsets.only(bottom: 12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(
+    return Container(
+      margin:
+          const EdgeInsets.only(bottom: 12),
+      padding:
+          const EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius:
+            BorderRadius.circular(18),
+        border: Border.all(
           color: Colors.grey.shade200,
         ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black
+                .withOpacity(0.035),
+            blurRadius: 10,
+            offset:
+                const Offset(0, 4),
+          ),
+        ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(18),
-        child: Row(
-          children: [
-            // Avatar
-            CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.blue.shade50,
+      child: Row(
+        children: [
+          // Avatar
+          Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: lightTeal,
+              shape: BoxShape.circle,
+            ),
+            child: Center(
               child: Text(
-                tenant['name'][0].toUpperCase(),
-                style: TextStyle(
-                  color: Colors.blue.shade700,
+                tenant['name'][0]
+                    .toUpperCase(),
+                style: const TextStyle(
+                  color: primaryColor,
                   fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                  fontWeight:
+                      FontWeight.bold,
                 ),
               ),
             ),
+          ),
 
-            const SizedBox(width: 15),
+          const SizedBox(width: 15),
 
-            // Tenant name and phone
-            Expanded(
-              flex: 2,
-              child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tenant['name'],
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-
-                  const SizedBox(height: 5),
-
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.phone_outlined,
-                        size: 14,
-                        color: Colors.grey.shade600,
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        tenant['phone'],
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            // House
-            Expanded(
-              child: _infoColumn(
-                'House',
-                tenant['house'],
-                Icons.home_outlined,
-              ),
-            ),
-
-            // Rent
-            Expanded(
-              child: _infoColumn(
-                'Monthly Rent',
-                'KSh ${tenant['rent']}',
-                Icons.payments_outlined,
-              ),
-            ),
-
-            // Move-in date
-            Expanded(
-              child: _infoColumn(
-                'Move-in Date',
-                tenant['moveInDate'],
-                Icons.calendar_today_outlined,
-              ),
-            ),
-
-            // Status
-            Expanded(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 7,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isActive
-                        ? Colors.green.shade50
-                        : Colors.red.shade50,
-                    borderRadius:
-                        BorderRadius.circular(20),
-                  ),
-                  child: Text(
-                    tenant['status'],
-                    style: TextStyle(
-                      color: isActive
-                          ? Colors.green.shade700
-                          : Colors.red.shade700,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            // Actions
-            Row(
+          // Tenant
+          Expanded(
+            flex: 2,
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
               children: [
-                IconButton(
-                  tooltip: 'Edit Tenant',
-                  onPressed: () {
-                    editTenant(index);
-                  },
-                  icon: Icon(
-                    Icons.edit_outlined,
-                    color: Colors.blue.shade700,
+                Text(
+                  tenant['name'],
+                  style: const TextStyle(
+                    fontWeight:
+                        FontWeight.bold,
+                    fontSize: 16,
+                    color:
+                        Color(0xFF263238),
                   ),
                 ),
 
-                IconButton(
-                  tooltip: 'Remove Tenant',
-                  onPressed: () {
-                    removeTenant(index);
-                  },
-                  icon: Icon(
-                    Icons.delete_outline,
-                    color: Colors.red.shade600,
-                  ),
+                const SizedBox(height: 6),
+
+                Row(
+                  children: [
+                    Icon(
+                      Icons.phone_outlined,
+                      size: 14,
+                      color:
+                          Colors.grey.shade500,
+                    ),
+                    const SizedBox(
+                        width: 5),
+                    Text(
+                      tenant['phone'],
+                      style: TextStyle(
+                        color:
+                            Colors.grey.shade600,
+                        fontSize: 13,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+
+          Expanded(
+            child: _infoColumn(
+              'House',
+              tenant['house'],
+              Icons.home_outlined,
+            ),
+          ),
+
+          Expanded(
+            child: _infoColumn(
+              'Monthly Rent',
+              'KSh ${tenant['rent']}',
+              Icons.payments_outlined,
+            ),
+          ),
+
+          Expanded(
+            child: _infoColumn(
+              'Move-in Date',
+              tenant['moveInDate'],
+              Icons.calendar_today_outlined,
+            ),
+          ),
+
+          // Status
+          Expanded(
+            child: Align(
+              alignment:
+                  Alignment.centerLeft,
+              child: Container(
+                padding:
+                    const EdgeInsets
+                        .symmetric(
+                  horizontal: 12,
+                  vertical: 7,
+                ),
+                decoration:
+                    BoxDecoration(
+                  color: isActive
+                      ? Colors.green.shade50
+                      : Colors.red.shade50,
+                  borderRadius:
+                      BorderRadius.circular(
+                    20,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize:
+                      MainAxisSize.min,
+                  children: [
+                    Icon(
+                      isActive
+                          ? Icons
+                              .check_circle_outline
+                          : Icons
+                              .cancel_outlined,
+                      size: 15,
+                      color: isActive
+                          ? Colors.green.shade700
+                          : Colors.red.shade700,
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      tenant['status'],
+                      style: TextStyle(
+                        color: isActive
+                            ? Colors.green.shade700
+                            : Colors.red.shade700,
+                        fontWeight:
+                            FontWeight.bold,
+                        fontSize: 12,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // Actions
+          Row(
+            children: [
+              IconButton(
+                tooltip:
+                    'Edit Tenant',
+                onPressed: () {
+                  editTenant(index);
+                },
+                style:
+                    IconButton.styleFrom(
+                  backgroundColor:
+                      lightTeal,
+                ),
+                icon: const Icon(
+                  Icons.edit_outlined,
+                  color:
+                      secondaryColor,
+                  size: 20,
+                ),
+              ),
+
+              const SizedBox(width: 5),
+
+              IconButton(
+                tooltip:
+                    'Remove Tenant',
+                onPressed: () {
+                  removeTenant(index);
+                },
+                style:
+                    IconButton.styleFrom(
+                  backgroundColor:
+                      Colors.red.shade50,
+                ),
+                icon: Icon(
+                  Icons.delete_outline,
+                  color:
+                      Colors.red.shade600,
+                  size: 20,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -796,26 +1024,31 @@ class _TenantsPageState extends State<TenantsPage> {
             Icon(
               icon,
               size: 14,
-              color: Colors.grey.shade500,
+              color:
+                  Colors.grey.shade500,
             ),
             const SizedBox(width: 5),
             Text(
               title,
               style: TextStyle(
                 fontSize: 11,
-                color: Colors.grey.shade500,
+                color:
+                    Colors.grey.shade500,
               ),
             ),
           ],
         ),
 
-        const SizedBox(height: 5),
+        const SizedBox(height: 6),
 
         Text(
           value,
           style: const TextStyle(
             fontSize: 13,
-            fontWeight: FontWeight.w600,
+            fontWeight:
+                FontWeight.w600,
+            color:
+                Color(0xFF37474F),
           ),
         ),
       ],
@@ -834,54 +1067,79 @@ class _TenantsPageState extends State<TenantsPage> {
   ) {
     return Expanded(
       child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
+        padding:
+            const EdgeInsets.all(20),
+        decoration:
+            BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius:
+              BorderRadius.circular(18),
           border: Border.all(
-            color: Colors.grey.shade200,
+            color:
+                Colors.grey.shade200,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black
+                  .withOpacity(0.035),
+              blurRadius: 10,
+              offset:
+                  const Offset(0, 4),
+            ),
+          ],
         ),
         child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: color.withOpacity(0.1),
+              width: 52,
+              height: 52,
+              decoration:
+                  BoxDecoration(
+                color: color
+                    .withOpacity(0.1),
                 borderRadius:
-                    BorderRadius.circular(12),
+                    BorderRadius.circular(
+                  15,
+                ),
               ),
               child: Icon(
                 icon,
                 color: color,
-                size: 25,
+                size: 26,
               ),
             ),
 
-            const SizedBox(width: 15),
+            const SizedBox(width: 14),
 
-            Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.grey.shade600,
-                    fontSize: 13,
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors
+                          .grey.shade600,
+                      fontSize: 13,
+                    ),
                   ),
-                ),
 
-                const SizedBox(height: 5),
+                  const SizedBox(height: 5),
 
-                Text(
-                  value,
-                  style: const TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
+                  Text(
+                    value,
+                    style:
+                        const TextStyle(
+                      fontSize: 20,
+                      fontWeight:
+                          FontWeight.bold,
+                      color:
+                          Color(0xFF263238),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -898,49 +1156,57 @@ class _TenantsPageState extends State<TenantsPage> {
     final tenantData =
         Provider.of<TenantData>(context);
 
-    final tenants = tenantData.tenants;
+    final tenants =
+        tenantData.tenants;
 
-    // Keep filtered list synchronized
-    // when the shared tenant list changes.
     if (searchController.text.isEmpty &&
-        filteredTenants.length != tenants.length) {
-      filteredTenants = List.from(tenants);
+        filteredTenants.length !=
+            tenants.length) {
+      filteredTenants =
+          List.from(tenants);
     }
 
     int activeTenants = tenants
         .where(
-          (tenant) => tenant['status'] == 'Active',
+          (tenant) =>
+              tenant['status'] ==
+              'Active',
         )
         .length;
 
     int inactiveTenants = tenants
         .where(
-          (tenant) => tenant['status'] == 'Inactive',
+          (tenant) =>
+              tenant['status'] ==
+              'Inactive',
         )
         .length;
 
     int monthlyRevenue = tenants
         .where(
-          (tenant) => tenant['status'] == 'Active',
+          (tenant) =>
+              tenant['status'] ==
+              'Active',
         )
         .fold(
           0,
           (sum, tenant) =>
-              sum + (tenant['rent'] as int),
+              sum +
+              (tenant['rent'] as int),
         );
 
     return Scaffold(
       backgroundColor:
-          const Color(0xFFF7F8FC),
+          backgroundColor,
 
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(30),
+          padding:
+              const EdgeInsets.all(30),
 
           child: Column(
             crossAxisAlignment:
                 CrossAxisAlignment.start,
-
             children: [
               // ------------------------------------------------
               // HEADER
@@ -948,28 +1214,66 @@ class _TenantsPageState extends State<TenantsPage> {
 
               Row(
                 mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
+                    MainAxisAlignment
+                        .spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                        CrossAxisAlignment
+                            .start,
                     children: [
-                      const Text(
-                        'Tenant Management',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontWeight:
-                              FontWeight.bold,
-                        ),
+                      Row(
+                        children: [
+                          Container(
+                            width: 48,
+                            height: 48,
+                            decoration:
+                                BoxDecoration(
+                              color:
+                                  lightTeal,
+                              borderRadius:
+                                  BorderRadius
+                                      .circular(
+                                14,
+                              ),
+                            ),
+                            child:
+                                const Icon(
+                              Icons
+                                  .people_alt_rounded,
+                              color:
+                                  secondaryColor,
+                              size: 25,
+                            ),
+                          ),
+
+                          const SizedBox(
+                              width: 15),
+
+                          const Text(
+                            'Tenant Management',
+                            style:
+                                TextStyle(
+                              fontSize: 28,
+                              fontWeight:
+                                  FontWeight
+                                      .bold,
+                              color:
+                                  Color(
+                                      0xFF263238),
+                            ),
+                          ),
+                        ],
                       ),
 
-                      const SizedBox(height: 7),
+                      const SizedBox(
+                          height: 10),
 
                       Text(
                         'Manage tenants, leases and rental information',
                         style: TextStyle(
-                          color:
-                              Colors.grey.shade600,
+                          color: Colors
+                              .grey.shade600,
                           fontSize: 14,
                         ),
                       ),
@@ -977,27 +1281,33 @@ class _TenantsPageState extends State<TenantsPage> {
                   ),
 
                   ElevatedButton.icon(
-                    onPressed: addTenant,
+                    onPressed:
+                        addTenant,
                     icon: const Icon(
-                      Icons.person_add_alt_1,
+                      Icons
+                          .person_add_alt_1_rounded,
                     ),
-                    label:
-                        const Text('Add Tenant'),
+                    label: const Text(
+                      'Add Tenant',
+                    ),
                     style:
                         ElevatedButton.styleFrom(
                       backgroundColor:
-                          Colors.blue.shade700,
+                          primaryColor,
                       foregroundColor:
                           Colors.white,
                       padding:
-                          const EdgeInsets.symmetric(
-                        horizontal: 20,
+                          const EdgeInsets
+                              .symmetric(
+                        horizontal: 22,
                         vertical: 16,
                       ),
+                      elevation: 0,
                       shape:
                           RoundedRectangleBorder(
                         borderRadius:
-                            BorderRadius.circular(
+                            BorderRadius
+                                .circular(
                           12,
                         ),
                       ),
@@ -1006,7 +1316,7 @@ class _TenantsPageState extends State<TenantsPage> {
                 ],
               ),
 
-              const SizedBox(height: 25),
+              const SizedBox(height: 28),
 
               // ------------------------------------------------
               // SUMMARY CARDS
@@ -1016,35 +1326,44 @@ class _TenantsPageState extends State<TenantsPage> {
                 children: [
                   _summaryCard(
                     'Total Tenants',
-                    tenants.length.toString(),
+                    tenants.length
+                        .toString(),
                     Icons.people_outline,
-                    Colors.blue,
+                    secondaryColor,
                   ),
 
-                  const SizedBox(width: 15),
+                  const SizedBox(
+                      width: 15),
 
                   _summaryCard(
                     'Active Leases',
-                    activeTenants.toString(),
-                    Icons.check_circle_outline,
+                    activeTenants
+                        .toString(),
+                    Icons
+                        .check_circle_outline,
                     Colors.green,
                   ),
 
-                  const SizedBox(width: 15),
+                  const SizedBox(
+                      width: 15),
 
                   _summaryCard(
                     'Inactive Leases',
-                    inactiveTenants.toString(),
-                    Icons.cancel_outlined,
+                    inactiveTenants
+                        .toString(),
+                    Icons
+                        .cancel_outlined,
                     Colors.orange,
                   ),
 
-                  const SizedBox(width: 15),
+                  const SizedBox(
+                      width: 15),
 
                   _summaryCard(
                     'Monthly Revenue',
                     'KSh $monthlyRevenue',
-                    Icons.payments_outlined,
+                    Icons
+                        .payments_outlined,
                     Colors.purple,
                   ),
                 ],
@@ -1057,15 +1376,29 @@ class _TenantsPageState extends State<TenantsPage> {
               // ------------------------------------------------
 
               Container(
+                height: 58,
                 decoration:
                     BoxDecoration(
                   color: Colors.white,
                   borderRadius:
-                      BorderRadius.circular(12),
-                  border: Border.all(
-                    color:
-                        Colors.grey.shade200,
+                      BorderRadius.circular(
+                    15,
                   ),
+                  border: Border.all(
+                    color: Colors
+                        .grey.shade200,
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black
+                          .withOpacity(
+                              0.025),
+                      blurRadius: 8,
+                      offset:
+                          const Offset(
+                              0, 3),
+                    ),
+                  ],
                 ),
                 child: TextField(
                   controller:
@@ -1076,9 +1409,17 @@ class _TenantsPageState extends State<TenantsPage> {
                       InputDecoration(
                     hintText:
                         'Search by tenant name, phone number or house...',
+                    hintStyle:
+                        TextStyle(
+                      color: Colors
+                          .grey.shade500,
+                      fontSize: 14,
+                    ),
                     prefixIcon:
                         const Icon(
-                      Icons.search,
+                      Icons.search_rounded,
+                      color:
+                          secondaryColor,
                     ),
                     suffixIcon:
                         searchController
@@ -1087,19 +1428,19 @@ class _TenantsPageState extends State<TenantsPage> {
                             ? IconButton(
                                 icon:
                                     const Icon(
-                                  Icons.clear,
+                                  Icons
+                                      .clear_rounded,
                                 ),
-                                onPressed: () {
+                                onPressed:
+                                    () {
                                   searchController
                                       .clear();
 
                                   searchTenant(
-                                    '',
-                                  );
+                                      '');
 
                                   setState(
-                                    () {},
-                                  );
+                                      () {});
                                 },
                               )
                             : null,
@@ -1122,17 +1463,23 @@ class _TenantsPageState extends State<TenantsPage> {
 
               Container(
                 padding:
-                    const EdgeInsets.symmetric(
+                    const EdgeInsets
+                        .symmetric(
                   horizontal: 20,
-                  vertical: 15,
+                  vertical: 16,
                 ),
                 decoration:
                     BoxDecoration(
-                  color:
-                      Colors.blue.shade700,
+                  gradient:
+                      const LinearGradient(
+                    colors: [
+                      primaryColor,
+                      secondaryColor,
+                    ],
+                  ),
                   borderRadius:
                       BorderRadius.circular(
-                    12,
+                    14,
                   ),
                 ),
                 child: Row(
@@ -1148,7 +1495,9 @@ class _TenantsPageState extends State<TenantsPage> {
                           fontWeight:
                               FontWeight
                                   .bold,
-                          fontSize: 12,
+                          fontSize: 11,
+                          letterSpacing:
+                              0.5,
                         ),
                       ),
                     ),
@@ -1163,7 +1512,9 @@ class _TenantsPageState extends State<TenantsPage> {
                           fontWeight:
                               FontWeight
                                   .bold,
-                          fontSize: 12,
+                          fontSize: 11,
+                          letterSpacing:
+                              0.5,
                         ),
                       ),
                     ),
@@ -1178,7 +1529,9 @@ class _TenantsPageState extends State<TenantsPage> {
                           fontWeight:
                               FontWeight
                                   .bold,
-                          fontSize: 12,
+                          fontSize: 11,
+                          letterSpacing:
+                              0.5,
                         ),
                       ),
                     ),
@@ -1193,7 +1546,9 @@ class _TenantsPageState extends State<TenantsPage> {
                           fontWeight:
                               FontWeight
                                   .bold,
-                          fontSize: 12,
+                          fontSize: 11,
+                          letterSpacing:
+                              0.5,
                         ),
                       ),
                     ),
@@ -1208,7 +1563,9 @@ class _TenantsPageState extends State<TenantsPage> {
                           fontWeight:
                               FontWeight
                                   .bold,
-                          fontSize: 12,
+                          fontSize: 11,
+                          letterSpacing:
+                              0.5,
                         ),
                       ),
                     ),
@@ -1224,7 +1581,9 @@ class _TenantsPageState extends State<TenantsPage> {
                           fontWeight:
                               FontWeight
                                   .bold,
-                          fontSize: 12,
+                          fontSize: 11,
+                          letterSpacing:
+                              0.5,
                         ),
                       ),
                     ),
@@ -1239,69 +1598,87 @@ class _TenantsPageState extends State<TenantsPage> {
               // ------------------------------------------------
 
               Expanded(
-                child: filteredTenants.isEmpty
-                    ? Center(
-                        child: Column(
-                          mainAxisAlignment:
-                              MainAxisAlignment
-                                  .center,
-                          children: [
-                            Icon(
-                              Icons
-                                  .people_outline,
-                              size: 70,
-                              color: Colors
-                                  .grey
-                                  .shade300,
-                            ),
+                child:
+                    filteredTenants
+                            .isEmpty
+                        ? Center(
+                            child:
+                                Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .center,
+                              children: [
+                                Container(
+                                  width: 90,
+                                  height: 90,
+                                  decoration:
+                                      BoxDecoration(
+                                    color:
+                                        lightTeal,
+                                    shape:
+                                        BoxShape
+                                            .circle,
+                                  ),
+                                  child:
+                                      const Icon(
+                                    Icons
+                                        .people_outline_rounded,
+                                    size: 45,
+                                    color:
+                                        secondaryColor,
+                                  ),
+                                ),
 
-                            const SizedBox(
-                              height: 15,
-                            ),
+                                const SizedBox(
+                                    height:
+                                        18),
 
-                            Text(
-                              'No tenants found',
-                              style:
-                                  TextStyle(
-                                fontSize: 18,
-                                fontWeight:
-                                    FontWeight
-                                        .bold,
-                                color: Colors
-                                    .grey
-                                    .shade600,
-                              ),
-                            ),
+                                const Text(
+                                  'No tenants found',
+                                  style:
+                                      TextStyle(
+                                    fontSize:
+                                        18,
+                                    fontWeight:
+                                        FontWeight
+                                            .bold,
+                                    color:
+                                        Color(
+                                            0xFF37474F),
+                                  ),
+                                ),
 
-                            const SizedBox(
-                              height: 5,
-                            ),
+                                const SizedBox(
+                                    height:
+                                        6),
 
-                            Text(
-                              'Try searching for another tenant.',
-                              style:
-                                  TextStyle(
-                                color: Colors
-                                    .grey
-                                    .shade500,
-                              ),
+                                Text(
+                                  'Try searching for another tenant.',
+                                  style:
+                                      TextStyle(
+                                    color: Colors
+                                        .grey
+                                        .shade500,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                      )
-                    : ListView.builder(
-                        itemCount:
-                            filteredTenants
-                                .length,
-                        itemBuilder:
-                            (context, index) {
-                          return _tenantCard(
-                            filteredTenants[
-                                index],
-                            index,
-                          );
-                        },
-                      ),
+                          )
+                        : ListView
+                            .builder(
+                            itemCount:
+                                filteredTenants
+                                    .length,
+                            itemBuilder:
+                                (context,
+                                    index) {
+                              return _tenantCard(
+                                filteredTenants[
+                                    index],
+                                index,
+                              );
+                            },
+                          ),
               ),
             ],
           ),

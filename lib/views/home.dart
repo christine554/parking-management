@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color(0xFF006978),
         items: <Widget>[
           Icon(Icons.dashboard, size: 30),
           Icon(Icons.person, size: 30),

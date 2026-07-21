@@ -68,211 +68,527 @@ class _DashboardState extends State<Dashboard> {
         );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F7FA),
+      backgroundColor: const Color(0xFFF5F9FA),
+
+      // ------------------------------------------------------------
+      // APP BAR
+      // ------------------------------------------------------------
 
       appBar: AppBar(
-        title: const Text("Rental Manager"),
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xFF006978),
         foregroundColor: Colors.white,
         elevation: 0,
+
+        title: const Row(
+          children: [
+            Icon(
+              Icons.home_work_rounded,
+              size: 28,
+            ),
+
+            SizedBox(width: 10),
+
+            Text(
+              "Property Manager",
+              style: TextStyle(
+                fontSize: 21,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.notifications_none_rounded,
+            ),
+          ),
+
+          const SizedBox(width: 8),
+
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 15,
+            ),
+
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+
+              child: const Icon(
+                Icons.person,
+                color: Color(0xFF006978),
+              ),
+            ),
+          ),
+        ],
       ),
 
+      // ------------------------------------------------------------
+      // BODY
+      // ------------------------------------------------------------
+
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(24),
 
-        child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
-
-          children: [
-
-            // ------------------------------------------------
-            // WELCOME MESSAGE
-            // ------------------------------------------------
-
-            const Text(
-              "Good Afternoon 👋",
-              style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-              ),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: 1200,
             ),
 
-            const SizedBox(height: 5),
-
-            const Text(
-              "Manage your rental properties efficiently.",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 16,
-              ),
-            ),
-
-            const SizedBox(height: 25),
-
-            // ------------------------------------------------
-            // DASHBOARD SUMMARY CARDS
-            // ------------------------------------------------
-
-            Row(
-              children: [
-
-                Expanded(
-                  child: dashboardCard(
-                    "Tenants",
-                    totalTenants.toString(),
-                    Icons.people,
-                    Colors.green,
-                  ),
-                ),
-
-                const SizedBox(width: 15),
-
-                Expanded(
-                  child: dashboardCard(
-                    "Active Tenants",
-                    activeTenants.toString(),
-                    Icons.person_outline,
-                    Colors.blue,
-                  ),
-                ),
-
-              ],
-            ),
-
-            const SizedBox(height: 15),
-
-            Row(
-              children: [
-
-                Expanded(
-                  child: dashboardCard(
-                    "Rent Collected",
-                    "KSh $paidAmount",
-                    Icons.payments,
-                    Colors.green,
-                  ),
-                ),
-
-                const SizedBox(width: 15),
-
-                Expanded(
-                  child: dashboardCard(
-                    "Pending Rent",
-                    "KSh $pendingAmount",
-                    Icons.warning,
-                    Colors.red,
-                  ),
-                ),
-
-              ],
-            ),
-
-            const SizedBox(height: 15),
-
-            // ------------------------------------------------
-            // TOTAL MONTHLY RENT
-            // ------------------------------------------------
-
-            SizedBox(
-              width: double.infinity,
-              child: dashboardCard(
-                "Expected Monthly Rent",
-                "KSh $monthlyRevenue",
-                Icons.account_balance_wallet,
-                Colors.orange,
-              ),
-            ),
-
-            const SizedBox(height: 30),
-
-            // ------------------------------------------------
-            // QUICK ACTIONS
-            // ------------------------------------------------
-
-            const Text(
-              "Quick Actions",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(height: 15),
-
-            Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceAround,
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
 
               children: [
+                // ------------------------------------------------
+                // WELCOME SECTION
+                // ------------------------------------------------
 
-                actionButton(
-                  Icons.person_add,
-                  "Tenant",
-                ),
+                Container(
+                  width: double.infinity,
 
-                actionButton(
-                  Icons.payments,
-                  "Payment",
-                ),
+                  padding: const EdgeInsets.all(25),
 
-                actionButton(
-                  Icons.build,
-                  "Repair",
-                ),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
 
-              ],
-            ),
-
-            const SizedBox(height: 30),
-
-            // ------------------------------------------------
-            // RECENT PAYMENTS
-            // ------------------------------------------------
-
-            const Text(
-              "Recent Payments",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(height: 15),
-
-            // Show tenants from TenantData
-            // instead of hard-coded names
-
-            if (tenants.isEmpty)
-              const Center(
-                child: Padding(
-                  padding: EdgeInsets.all(30),
-                  child: Text(
-                    "No tenants available.",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
+                      colors: [
+                        Color(0xFF006978),
+                        Color(0xFF008FA3),
+                      ],
                     ),
+
+                    borderRadius:
+                        BorderRadius.circular(20),
+
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black
+                            .withOpacity(0.1),
+
+                        blurRadius: 15,
+
+                        offset:
+                            const Offset(0, 6),
+                      ),
+                    ],
+                  ),
+
+                  child: Row(
+                    children: [
+                      // Welcome Icon
+                      Container(
+                        width: 65,
+                        height: 65,
+
+                        decoration:
+                            BoxDecoration(
+                          color: Colors.white
+                              .withOpacity(0.2),
+
+                          shape:
+                              BoxShape.circle,
+                        ),
+
+                        child: const Icon(
+                          Icons.home_rounded,
+                          color: Colors.white,
+                          size: 35,
+                        ),
+                      ),
+
+                      const SizedBox(width: 20),
+
+                      // Welcome Text
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment
+                                  .start,
+
+                          children: [
+                            Text(
+                              "Good Afternoon 👋",
+
+                              style:
+                                  TextStyle(
+                                color:
+                                    Colors.white,
+
+                                fontSize: 27,
+
+                                fontWeight:
+                                    FontWeight.bold,
+                              ),
+                            ),
+
+                            SizedBox(height: 6),
+
+                            Text(
+                              "Manage your rental properties efficiently.",
+
+                              style:
+                                  TextStyle(
+                                color:
+                                    Colors.white70,
+
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              )
-            else
-              ...tenants.map(
-                (tenant) {
-                  final bool paid =
-                      tenant['paymentStatus'] ==
-                          'Paid';
 
-                  return paymentTile(
-                    tenant['name'].toString(),
-                    "House ${tenant['house']}",
-                    "KSh ${tenant['rent']}",
-                    paid,
-                  );
-                },
-              ),
+                const SizedBox(height: 30),
 
-          ],
+                // ------------------------------------------------
+                // DASHBOARD SUMMARY TITLE
+                // ------------------------------------------------
+
+                const Text(
+                  "Property Overview",
+
+                  style: TextStyle(
+                    fontSize: 23,
+
+                    fontWeight:
+                        FontWeight.bold,
+
+                    color:
+                        Color(0xFF006978),
+                  ),
+                ),
+
+                const SizedBox(height: 15),
+
+                // ------------------------------------------------
+                // SUMMARY CARDS
+                // ------------------------------------------------
+
+                LayoutBuilder(
+                  builder:
+                      (context, constraints) {
+                    if (constraints.maxWidth >
+                        800) {
+                      return Row(
+                        children: [
+                          Expanded(
+                            child:
+                                dashboardCard(
+                              "Tenants",
+
+                              totalTenants
+                                  .toString(),
+
+                              Icons
+                                  .people_alt_rounded,
+
+                              const Color(
+                                0xFF008FA3,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(
+                            width: 15,
+                          ),
+
+                          Expanded(
+                            child:
+                                dashboardCard(
+                              "Active Tenants",
+
+                              activeTenants
+                                  .toString(),
+
+                              Icons
+                                  .person_outline_rounded,
+
+                              const Color(
+                                0xFF00796B,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(
+                            width: 15,
+                          ),
+
+                          Expanded(
+                            child:
+                                dashboardCard(
+                              "Rent Collected",
+
+                              "KSh $paidAmount",
+
+                              Icons
+                                  .payments_rounded,
+
+                              const Color(
+                                0xFF2E7D32,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(
+                            width: 15,
+                          ),
+
+                          Expanded(
+                            child:
+                                dashboardCard(
+                              "Pending Rent",
+
+                              "KSh $pendingAmount",
+
+                              Icons
+                                  .warning_amber_rounded,
+
+                              const Color(
+                                0xFFD32F2F,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    }
+
+                    return Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child:
+                                  dashboardCard(
+                                "Tenants",
+
+                                totalTenants
+                                    .toString(),
+
+                                Icons
+                                    .people_alt_rounded,
+
+                                const Color(
+                                  0xFF008FA3,
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(
+                              width: 15,
+                            ),
+
+                            Expanded(
+                              child:
+                                  dashboardCard(
+                                "Active Tenants",
+
+                                activeTenants
+                                    .toString(),
+
+                                Icons
+                                    .person_outline_rounded,
+
+                                const Color(
+                                  0xFF00796B,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(
+                          height: 15,
+                        ),
+
+                        Row(
+                          children: [
+                            Expanded(
+                              child:
+                                  dashboardCard(
+                                "Rent Collected",
+
+                                "KSh $paidAmount",
+
+                                Icons
+                                    .payments_rounded,
+
+                                const Color(
+                                  0xFF2E7D32,
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(
+                              width: 15,
+                            ),
+
+                            Expanded(
+                              child:
+                                  dashboardCard(
+                                "Pending Rent",
+
+                                "KSh $pendingAmount",
+
+                                Icons
+                                    .warning_amber_rounded,
+
+                                const Color(
+                                  0xFFD32F2F,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    );
+                  },
+                ),
+
+                const SizedBox(height: 20),
+
+                // ------------------------------------------------
+                // TOTAL MONTHLY RENT
+                // ------------------------------------------------
+
+                SizedBox(
+                  width: double.infinity,
+
+                  child: dashboardCard(
+                    "Expected Monthly Rent",
+
+                    "KSh $monthlyRevenue",
+
+                    Icons
+                        .account_balance_wallet_rounded,
+
+                    const Color(0xFFE67E22),
+                  ),
+                ),
+
+                const SizedBox(height: 35),
+
+                // ------------------------------------------------
+                // RECENT PAYMENTS
+                // ------------------------------------------------
+
+                Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment
+                          .spaceBetween,
+
+                  children: [
+                    const Text(
+                      "Recent Payments",
+
+                      style: TextStyle(
+                        fontSize: 23,
+
+                        fontWeight:
+                            FontWeight.bold,
+
+                        color:
+                            Color(0xFF006978),
+                      ),
+                    ),
+
+                    Text(
+                      "${tenants.length} Tenants",
+
+                      style:
+                          const TextStyle(
+                        color:
+                            Color(0xFF008FA3),
+
+                        fontWeight:
+                            FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+
+                const SizedBox(height: 15),
+
+                // ------------------------------------------------
+                // TENANT PAYMENT INFORMATION
+                // ------------------------------------------------
+
+                if (tenants.isEmpty)
+                  Container(
+                    width: double.infinity,
+
+                    padding:
+                        const EdgeInsets.all(
+                      35,
+                    ),
+
+                    decoration:
+                        BoxDecoration(
+                      color: Colors.white,
+
+                      borderRadius:
+                          BorderRadius
+                              .circular(18),
+                    ),
+
+                    child: const Column(
+                      children: [
+                        Icon(
+                          Icons
+                              .receipt_long_rounded,
+
+                          size: 50,
+
+                          color: Colors.grey,
+                        ),
+
+                        SizedBox(height: 10),
+
+                        Text(
+                          "No tenants available.",
+
+                          style:
+                              TextStyle(
+                            color:
+                                Colors.grey,
+
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                else
+                  ...tenants.map(
+                    (tenant) {
+                      final bool paid =
+                          tenant[
+                                  'paymentStatus'] ==
+                              'Paid';
+
+                      return paymentTile(
+                        tenant['name']
+                            .toString(),
+
+                        "House ${tenant['house']}",
+
+                        "KSh ${tenant['rent']}",
+
+                        paid,
+                      );
+                    },
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -288,79 +604,104 @@ class _DashboardState extends State<Dashboard> {
     IconData icon,
     Color color,
   ) {
-    return Card(
-      elevation: 4,
+    return Container(
+      padding:
+          const EdgeInsets.all(20),
 
-      shape: RoundedRectangleBorder(
+      decoration:
+          BoxDecoration(
+        color: Colors.white,
+
         borderRadius:
-            BorderRadius.circular(15),
-      ),
+            BorderRadius.circular(18),
 
-      child: Padding(
-        padding:
-            const EdgeInsets.all(16),
-
-        child: Column(
-          children: [
-
-            Icon(
-              icon,
-              color: color,
-              size: 35,
-            ),
-
-            const SizedBox(height: 10),
-
-            Text(
-              value,
-              style: const TextStyle(
-                fontSize: 22,
-                fontWeight:
-                    FontWeight.bold,
-              ),
-            ),
-
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.grey,
-              ),
-            ),
-
-          ],
+        border: Border.all(
+          color:
+              Colors.grey.shade200,
         ),
-      ),
-    );
-  }
 
-  // ------------------------------------------------------------
-  // QUICK ACTION BUTTON
-  // ------------------------------------------------------------
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black
+                .withOpacity(0.05),
 
-  Widget actionButton(
-    IconData icon,
-    String text,
-  ) {
-    return Column(
-      children: [
+            blurRadius: 12,
 
-        CircleAvatar(
-          radius: 28,
-
-          backgroundColor:
-              Colors.blue.shade100,
-
-          child: Icon(
-            icon,
-            color: Colors.blue,
+            offset:
+                const Offset(0, 5),
           ),
-        ),
+        ],
+      ),
 
-        const SizedBox(height: 8),
+      child: Row(
+        children: [
+          // Icon Container
+          Container(
+            width: 55,
+            height: 55,
 
-        Text(text),
+            decoration:
+                BoxDecoration(
+              color:
+                  color.withOpacity(0.12),
 
-      ],
+              borderRadius:
+                  BorderRadius.circular(
+                15,
+              ),
+            ),
+
+            child: Icon(
+              icon,
+
+              color: color,
+
+              size: 28,
+            ),
+          ),
+
+          const SizedBox(width: 15),
+
+          // Card Information
+          Expanded(
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
+              children: [
+                Text(
+                  title,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Colors.grey,
+
+                    fontSize: 14,
+                  ),
+                ),
+
+                const SizedBox(height: 5),
+
+                Text(
+                  value,
+
+                  style:
+                      const TextStyle(
+                    fontSize: 21,
+
+                    fontWeight:
+                        FontWeight.bold,
+
+                    color:
+                        Color(0xFF263238),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -374,52 +715,183 @@ class _DashboardState extends State<Dashboard> {
     String amount,
     bool paid,
   ) {
-    return Card(
+    return Container(
       margin:
           const EdgeInsets.only(
         bottom: 12,
       ),
 
-      child: ListTile(
+      padding:
+          const EdgeInsets.all(15),
 
-        leading: CircleAvatar(
-          backgroundColor:
-              Colors.blue.shade100,
+      decoration:
+          BoxDecoration(
+        color: Colors.white,
 
-          child: const Icon(
-            Icons.person,
+        borderRadius:
+            BorderRadius.circular(18),
+
+        border: Border.all(
+          color:
+              Colors.grey.shade200,
+        ),
+
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black
+                .withOpacity(0.04),
+
+            blurRadius: 10,
+
+            offset:
+                const Offset(0, 4),
           ),
-        ),
+        ],
+      ),
 
-        title: Text(tenant),
+      child: Row(
+        children: [
+          // Tenant Avatar
+          Container(
+            width: 55,
+            height: 55,
 
-        subtitle: Text(
-          "$house\n$amount",
-        ),
+            decoration:
+                BoxDecoration(
+              color:
+                  const Color(0xFFE0F7FA),
 
-        isThreeLine: true,
+              shape:
+                  BoxShape.circle,
+            ),
 
-        trailing: Chip(
-          backgroundColor:
-              paid
-                  ? Colors.green.shade100
-                  : Colors.red.shade100,
+            child: const Icon(
+              Icons.person_rounded,
 
-          label: Text(
-            paid
-                ? "Paid"
-                : "Pending",
+              color:
+                  Color(0xFF008FA3),
 
-            style: TextStyle(
-              color: paid
-                  ? Colors.green
-                  : Colors.red,
-
-              fontWeight:
-                  FontWeight.bold,
+              size: 28,
             ),
           ),
-        ),
+
+          const SizedBox(width: 15),
+
+          // Tenant Details
+          Expanded(
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
+              children: [
+                Text(
+                  tenant,
+
+                  style:
+                      const TextStyle(
+                    fontSize: 16,
+
+                    fontWeight:
+                        FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 5),
+
+                Text(
+                  house,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Colors.grey,
+
+                    fontSize: 13,
+                  ),
+                ),
+
+                const SizedBox(height: 3),
+
+                Text(
+                  amount,
+
+                  style:
+                      const TextStyle(
+                    color:
+                        Color(0xFF008FA3),
+
+                    fontWeight:
+                        FontWeight.bold,
+
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Payment Status
+          Container(
+            padding:
+                const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 7,
+            ),
+
+            decoration:
+                BoxDecoration(
+              color: paid
+                  ? Colors.green.shade50
+                  : Colors.red.shade50,
+
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+            ),
+
+            child: Row(
+              mainAxisSize:
+                  MainAxisSize.min,
+
+              children: [
+                Icon(
+                  paid
+                      ? Icons
+                          .check_circle_outline
+                      : Icons
+                          .pending_outlined,
+
+                  size: 16,
+
+                  color: paid
+                      ? Colors.green
+                      : Colors.red,
+                ),
+
+                const SizedBox(width: 5),
+
+                Text(
+                  paid
+                      ? "Paid"
+                      : "Pending",
+
+                  style:
+                      TextStyle(
+                    color: paid
+                        ? Colors.green
+                        : Colors.red,
+
+                    fontWeight:
+                        FontWeight.bold,
+
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

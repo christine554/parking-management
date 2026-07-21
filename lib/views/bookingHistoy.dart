@@ -12,7 +12,6 @@ class MaintenanceReports extends StatefulWidget {
 
 class _MaintenanceReportsState
     extends State<MaintenanceReports> {
-
   // ------------------------------------------------------------
   // MAINTENANCE DATA
   // ------------------------------------------------------------
@@ -40,7 +39,6 @@ class _MaintenanceReportsState
 
   @override
   Widget build(BuildContext context) {
-
     // ----------------------------------------------------------
     // GET SHARED TENANT DATA
     // ----------------------------------------------------------
@@ -54,7 +52,6 @@ class _MaintenanceReportsState
     // CALCULATE REPORTS FROM TENANT DATA
     // ----------------------------------------------------------
 
-    // Total rent collected from Paid tenants
     final totalRentCollected = tenants
         .where(
           (tenant) =>
@@ -66,7 +63,6 @@ class _MaintenanceReportsState
               sum + (tenant['rent'] as int),
         );
 
-    // Outstanding rent from Pending tenants
     final outstandingRent = tenants
         .where(
           (tenant) =>
@@ -78,412 +74,473 @@ class _MaintenanceReportsState
               sum + (tenant['rent'] as int),
         );
 
-    // Total deposits from all tenants
     final totalDeposits = tenants.fold(
       0,
       (sum, tenant) =>
           sum + (tenant['deposit'] as int),
     );
 
-    // Total repair expenses
     final repairExpenses = repairs.fold(
       0,
       (sum, repair) =>
           sum + (repair['cost'] as int),
     );
 
-    // Net income
     final netIncome =
         totalRentCollected - repairExpenses;
 
     return Scaffold(
       backgroundColor:
-          const Color(0xFFF5F7FA),
+          const Color(0xFFF7F8FC),
 
-      appBar: AppBar(
-        title: const Text(
-          "Maintenance & Reports",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
-      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(30),
 
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+          child: Column(
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
 
-        child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+            children: [
+              // ==================================================
+              // PAGE HEADER
+              // ==================================================
 
-          children: [
+              Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
 
-            // ==================================================
-            // MAINTENANCE SECTION
-            // ==================================================
+                children: [
+                  Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
 
-            Row(
-              mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
-
-              children: [
-
-                const Text(
-                  "Maintenance",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight:
-                        FontWeight.bold,
-                  ),
-                ),
-
-                ElevatedButton.icon(
-                  onPressed:
-                      _showAddRepairDialog,
-
-                  icon: const Icon(
-                    Icons.add,
-                  ),
-
-                  label: const Text(
-                    "Add Repair",
-                  ),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: 15),
-
-            // --------------------------------------------------
-            // REPAIR LIST
-            // --------------------------------------------------
-
-            if (repairs.isEmpty)
-              const Center(
-                child: Padding(
-                  padding:
-                      EdgeInsets.all(30),
-                  child: Text(
-                    "No repairs recorded.",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              )
-            else
-              ...repairs.map(
-                (repair) {
-
-                  final bool completed =
-                      repair["status"] ==
-                          "Completed";
-
-                  return Card(
-                    margin:
-                        const EdgeInsets.only(
-                      bottom: 12,
-                    ),
-
-                    elevation: 3,
-
-                    child: Padding(
-                      padding:
-                          const EdgeInsets.all(
-                        16,
+                    children: [
+                      const Text(
+                        "Maintenance & Reports",
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight:
+                              FontWeight.bold,
+                        ),
                       ),
 
-                      child: Row(
-                        children: [
+                      const SizedBox(height: 7),
 
-                          // Repair Icon
-                          Container(
-                            padding:
-                                const EdgeInsets.all(
+                      Text(
+                        "Manage property maintenance and view financial reports",
+                        style: TextStyle(
+                          color:
+                              Colors.grey.shade600,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  ElevatedButton.icon(
+                    onPressed:
+                        _showAddRepairDialog,
+
+                    icon: const Icon(
+                      Icons.add,
+                    ),
+
+                    label: const Text(
+                      "Add Repair",
+                    ),
+
+                    style:
+                        ElevatedButton.styleFrom(
+                      backgroundColor:
+                          Colors.blue.shade700,
+                      foregroundColor:
+                          Colors.white,
+
+                      padding:
+                          const EdgeInsets.symmetric(
+                        horizontal: 20,
+                        vertical: 16,
+                      ),
+
+                      elevation: 0,
+
+                      shape:
+                          RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(
+                          12,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 30),
+
+              // ==================================================
+              // MAINTENANCE SECTION
+              // ==================================================
+
+              Row(
+                mainAxisAlignment:
+                    MainAxisAlignment.spaceBetween,
+
+                children: [
+                  Column(
+                    crossAxisAlignment:
+                        CrossAxisAlignment.start,
+
+                    children: [
+                      const Text(
+                        "Maintenance",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight:
+                              FontWeight.bold,
+                        ),
+                      ),
+
+                      const SizedBox(height: 5),
+
+                      Text(
+                        "Track property repairs and maintenance activities",
+                        style: TextStyle(
+                          color:
+                              Colors.grey.shade600,
+                          fontSize: 13,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 18),
+
+              // ==================================================
+              // REPAIR LIST
+              // ==================================================
+
+              if (repairs.isEmpty)
+                Container(
+                  width: double.infinity,
+                  padding:
+                      const EdgeInsets.all(40),
+
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+
+                    borderRadius:
+                        BorderRadius.circular(
+                      16,
+                    ),
+
+                    border: Border.all(
+                      color:
+                          Colors.grey.shade200,
+                    ),
+                  ),
+
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.build_outlined,
+                        size: 60,
+                        color:
+                            Colors.grey.shade300,
+                      ),
+
+                      const SizedBox(
+                        height: 15,
+                      ),
+
+                      Text(
+                        "No repairs recorded.",
+                        style: TextStyle(
+                          color:
+                              Colors.grey.shade600,
+                          fontSize: 16,
+                          fontWeight:
+                              FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              else
+                ...repairs.map(
+                  (repair) {
+                    final bool completed =
+                        repair["status"] ==
+                            "Completed";
+
+                    return _repairCard(
+                      repair,
+                      completed,
+                    );
+                  },
+                ),
+
+              const SizedBox(height: 35),
+
+              // ==================================================
+              // REPORTS SECTION
+              // ==================================================
+
+              const Text(
+                "Reports",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight:
+                      FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 5),
+
+              Text(
+                "Financial overview of your rental property",
+                style: TextStyle(
+                  color:
+                      Colors.grey.shade600,
+                  fontSize: 13,
+                ),
+              ),
+
+              const SizedBox(height: 18),
+
+              // ==================================================
+              // REPORT CARDS
+              // ==================================================
+
+              Row(
+                children: [
+                  Expanded(
+                    child: _reportCard(
+                      title:
+                          "Total Rent Collected",
+                      amount:
+                          "KSh $totalRentCollected",
+                      icon:
+                          Icons.payments_outlined,
+                      color:
+                          Colors.green,
+                    ),
+                  ),
+
+                  const SizedBox(width: 15),
+
+                  Expanded(
+                    child: _reportCard(
+                      title:
+                          "Outstanding Rent",
+                      amount:
+                          "KSh $outstandingRent",
+                      icon:
+                          Icons.pending_outlined,
+                      color:
+                          Colors.red,
+                    ),
+                  ),
+
+                  const SizedBox(width: 15),
+
+                  Expanded(
+                    child: _reportCard(
+                      title:
+                          "Total Deposits",
+                      amount:
+                          "KSh $totalDeposits",
+                      icon:
+                          Icons.account_balance_wallet_outlined,
+                      color:
+                          Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 15),
+
+              Row(
+                children: [
+                  Expanded(
+                    child: _reportCard(
+                      title:
+                          "Repair Expenses",
+                      amount:
+                          "KSh $repairExpenses",
+                      icon:
+                          Icons.build_outlined,
+                      color:
+                          Colors.orange,
+                    ),
+                  ),
+
+                  const SizedBox(width: 15),
+
+                  Expanded(
+                    child: _reportCard(
+                      title:
+                          "Net Income",
+                      amount:
+                          "KSh $netIncome",
+                      icon:
+                          Icons.trending_up,
+                      color:
+                          Colors.purple,
+                    ),
+                  ),
+
+                  const SizedBox(width: 15),
+
+                  const Expanded(
+                    child:
+                        SizedBox(),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 35),
+
+              // ==================================================
+              // MONTHLY REVENUE
+              // ==================================================
+
+              const Text(
+                "Monthly Revenue",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight:
+                      FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 5),
+
+              Text(
+                "Overview of rent collection across the year",
+                style: TextStyle(
+                  color:
+                      Colors.grey.shade600,
+                  fontSize: 13,
+                ),
+              ),
+
+              const SizedBox(height: 18),
+
+              // ==================================================
+              // REVENUE CHART CARD
+              // ==================================================
+
+              Container(
+                width: double.infinity,
+
+                padding:
+                    const EdgeInsets.all(25),
+
+                decoration: BoxDecoration(
+                  color: Colors.white,
+
+                  borderRadius:
+                      BorderRadius.circular(
+                    18,
+                  ),
+
+                  border: Border.all(
+                    color:
+                        Colors.grey.shade200,
+                  ),
+
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black
+                          .withOpacity(0.03),
+                      blurRadius: 10,
+                      offset:
+                          const Offset(0, 4),
+                    ),
+                  ],
+                ),
+
+                child: Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
+
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          padding:
+                              const EdgeInsets
+                                  .all(12),
+
+                          decoration:
+                              BoxDecoration(
+                            color: Colors
+                                .blue
+                                .shade50,
+
+                            borderRadius:
+                                BorderRadius
+                                    .circular(
                               12,
                             ),
-
-                            decoration:
-                                BoxDecoration(
-                              color: Colors
-                                  .blue
-                                  .shade50,
-
-                              borderRadius:
-                                  BorderRadius
-                                      .circular(
-                                10,
-                              ),
-                            ),
-
-                            child:
-                                const Icon(
-                              Icons.build,
-                              color:
-                                  Colors.blue,
-                              size: 30,
-                            ),
                           ),
 
-                          const SizedBox(
-                            width: 15,
+                          child: Icon(
+                            Icons
+                                .bar_chart_outlined,
+                            color: Colors
+                                .blue
+                                .shade700,
+                            size: 25,
                           ),
+                        ),
 
-                          // Repair Information
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment:
-                                  CrossAxisAlignment
-                                      .start,
+                        const SizedBox(
+                          width: 15,
+                        ),
 
-                              children: [
+                        const Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment
+                                  .start,
 
-                                Text(
-                                  "House ${repair["house"]}",
-
-                                  style:
-                                      const TextStyle(
-                                    fontSize: 17,
-                                    fontWeight:
-                                        FontWeight
-                                            .bold,
-                                  ),
-                                ),
-
-                                const SizedBox(
-                                  height: 5,
-                                ),
-
-                                Text(
-                                  "Problem: ${repair["problem"]}",
-                                ),
-
-                                const SizedBox(
-                                  height: 5,
-                                ),
-
-                                Text(
-                                  "Cost: KSh ${repair["cost"]}",
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          // Status
-                          Container(
-                            padding:
-                                const EdgeInsets
-                                    .symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-
-                            decoration:
-                                BoxDecoration(
-                              color: completed
-                                  ? Colors
-                                      .green
-                                      .shade100
-                                  : Colors
-                                      .orange
-                                      .shade100,
-
-                              borderRadius:
-                                  BorderRadius
-                                      .circular(
-                                20,
-                              ),
-                            ),
-
-                            child: Text(
-                              repair["status"],
-
+                          children: [
+                            Text(
+                              "Rent Collection Overview",
                               style:
                                   TextStyle(
-                                color: completed
-                                    ? Colors
-                                        .green
-                                        .shade800
-                                    : Colors
-                                        .orange
-                                        .shade800,
-
+                                fontSize: 17,
                                 fontWeight:
                                     FontWeight
                                         .bold,
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
 
-            const SizedBox(
-              height: 30,
-            ),
+                            SizedBox(
+                              height: 4,
+                            ),
 
-            // ==================================================
-            // REPORTS SECTION
-            // ==================================================
-
-            const Text(
-              "Reports",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight:
-                    FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(
-              height: 15,
-            ),
-
-            // --------------------------------------------------
-            // REPORT CARDS
-            // --------------------------------------------------
-
-            GridView.count(
-              crossAxisCount: 2,
-
-              shrinkWrap: true,
-
-              physics:
-                  const NeverScrollableScrollPhysics(),
-
-              crossAxisSpacing: 15,
-
-              mainAxisSpacing: 15,
-
-              childAspectRatio: 1.5,
-
-              children: [
-
-                _reportCard(
-                  title:
-                      "Total Rent Collected",
-
-                  amount:
-                      "KSh $totalRentCollected",
-
-                  icon:
-                      Icons.payments,
-
-                  color:
-                      Colors.green,
-                ),
-
-                _reportCard(
-                  title:
-                      "Outstanding Rent",
-
-                  amount:
-                      "KSh $outstandingRent",
-
-                  icon:
-                      Icons.pending,
-
-                  color:
-                      Colors.red,
-                ),
-
-                _reportCard(
-                  title:
-                      "Total Deposits",
-
-                  amount:
-                      "KSh $totalDeposits",
-
-                  icon:
-                      Icons.account_balance_wallet,
-
-                  color:
-                      Colors.blue,
-                ),
-
-                _reportCard(
-                  title:
-                      "Repair Expenses",
-
-                  amount:
-                      "KSh $repairExpenses",
-
-                  icon:
-                      Icons.build,
-
-                  color:
-                      Colors.orange,
-                ),
-
-                _reportCard(
-                  title:
-                      "Net Income",
-
-                  amount:
-                      "KSh $netIncome",
-
-                  icon:
-                      Icons.trending_up,
-
-                  color:
-                      Colors.purple,
-                ),
-              ],
-            ),
-
-            const SizedBox(
-              height: 30,
-            ),
-
-            // ==================================================
-            // MONTHLY REVENUE
-            // ==================================================
-
-            const Text(
-              "Monthly Revenue",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight:
-                    FontWeight.bold,
-              ),
-            ),
-
-            const SizedBox(
-              height: 15,
-            ),
-
-            Card(
-              elevation: 3,
-
-              child: Padding(
-                padding:
-                    const EdgeInsets.all(
-                  20,
-                ),
-
-                child: Column(
-                  children: [
-
-                    const Text(
-                      "Rent Collection Overview",
-
-                      style:
-                          TextStyle(
-                        fontSize: 18,
-                        fontWeight:
-                            FontWeight
-                                .bold,
-                      ),
+                            Text(
+                              "Monthly revenue performance",
+                              style:
+                                  TextStyle(
+                                color:
+                                    Colors.grey,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
 
                     const SizedBox(
-                      height: 20,
+                      height: 30,
                     ),
 
                     SizedBox(
@@ -499,7 +556,6 @@ class _MaintenanceReportsState
                                 .end,
 
                         children: [
-
                           _revenueBar(
                             "Jan",
                             0.6,
@@ -535,9 +591,192 @@ class _MaintenanceReportsState
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  // ============================================================
+  // REPAIR CARD
+  // ============================================================
+
+  Widget _repairCard(
+    Map<String, dynamic> repair,
+    bool completed,
+  ) {
+    return Container(
+      margin:
+          const EdgeInsets.only(bottom: 12),
+
+      padding:
+          const EdgeInsets.all(18),
+
+      decoration: BoxDecoration(
+        color: Colors.white,
+
+        borderRadius:
+            BorderRadius.circular(16),
+
+        border: Border.all(
+          color: Colors.grey.shade200,
+        ),
+
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black
+                .withOpacity(0.025),
+            blurRadius: 8,
+            offset:
+                const Offset(0, 3),
+          ),
+        ],
+      ),
+
+      child: Row(
+        children: [
+          // Repair Icon
+          Container(
+            padding:
+                const EdgeInsets.all(14),
+
+            decoration:
+                BoxDecoration(
+              color:
+                  Colors.blue.shade50,
+
+              borderRadius:
+                  BorderRadius.circular(
+                12,
+              ),
+            ),
+
+            child: Icon(
+              Icons.build_outlined,
+              color:
+                  Colors.blue.shade700,
+              size: 28,
+            ),
+          ),
+
+          const SizedBox(width: 18),
+
+          // Repair Information
+          Expanded(
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
+              children: [
+                Text(
+                  "House ${repair["house"]}",
+
+                  style:
+                      const TextStyle(
+                    fontSize: 16,
+                    fontWeight:
+                        FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 6,
+                ),
+
+                Text(
+                  "Problem: ${repair["problem"]}",
+
+                  style: TextStyle(
+                    color:
+                        Colors.grey.shade700,
+                    fontSize: 13,
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 5,
+                ),
+
+                Text(
+                  "Cost: KSh ${repair["cost"]}",
+
+                  style:
+                      const TextStyle(
+                    fontSize: 13,
+                    fontWeight:
+                        FontWeight.w600,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Status
+          Container(
+            padding:
+                const EdgeInsets.symmetric(
+              horizontal: 14,
+              vertical: 8,
+            ),
+
+            decoration:
+                BoxDecoration(
+              color: completed
+                  ? Colors.green.shade50
+                  : Colors.orange.shade50,
+
+              borderRadius:
+                  BorderRadius.circular(
+                20,
+              ),
+            ),
+
+            child: Row(
+              mainAxisSize:
+                  MainAxisSize.min,
+
+              children: [
+                Icon(
+                  completed
+                      ? Icons
+                          .check_circle_outline
+                      : Icons
+                          .pending_outlined,
+
+                  size: 16,
+
+                  color: completed
+                      ? Colors.green.shade700
+                      : Colors.orange.shade700,
+                ),
+
+                const SizedBox(
+                  width: 6,
+                ),
+
+                Text(
+                  repair["status"],
+
+                  style: TextStyle(
+                    color: completed
+                        ? Colors
+                            .green
+                            .shade700
+                        : Colors
+                            .orange
+                            .shade700,
+
+                    fontWeight:
+                        FontWeight.bold,
+
+                    fontSize: 12,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -552,58 +791,96 @@ class _MaintenanceReportsState
     required IconData icon,
     required Color color,
   }) {
-    return Card(
-      elevation: 3,
+    return Container(
+      padding:
+          const EdgeInsets.all(20),
 
-      child: Padding(
-        padding:
-            const EdgeInsets.all(15),
+      decoration: BoxDecoration(
+        color: Colors.white,
 
-        child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.start,
+        borderRadius:
+            BorderRadius.circular(16),
 
-          mainAxisAlignment:
-              MainAxisAlignment.center,
+        border: Border.all(
+          color: Colors.grey.shade200,
+        ),
 
-          children: [
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black
+                .withOpacity(0.025),
+            blurRadius: 8,
+            offset:
+                const Offset(0, 3),
+          ),
+        ],
+      ),
 
-            Icon(
+      child: Row(
+        children: [
+          Container(
+            padding:
+                const EdgeInsets.all(12),
+
+            decoration:
+                BoxDecoration(
+              color:
+                  color.withOpacity(0.1),
+
+              borderRadius:
+                  BorderRadius.circular(
+                12,
+              ),
+            ),
+
+            child: Icon(
               icon,
               color: color,
-              size: 30,
+              size: 25,
             ),
+          ),
 
-            const SizedBox(
-              height: 10,
+          const SizedBox(width: 15),
+
+          Expanded(
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start,
+
+              children: [
+                Text(
+                  title,
+
+                  maxLines: 1,
+
+                  overflow:
+                      TextOverflow.ellipsis,
+
+                  style: TextStyle(
+                    color:
+                        Colors.grey.shade600,
+                    fontSize: 13,
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 6,
+                ),
+
+                Text(
+                  amount,
+
+                  style:
+                      const TextStyle(
+                    fontSize: 20,
+                    fontWeight:
+                        FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
-
-            Text(
-              title,
-
-              style:
-                  const TextStyle(
-                fontSize: 14,
-                color: Colors.grey,
-              ),
-            ),
-
-            const SizedBox(
-              height: 5,
-            ),
-
-            Text(
-              amount,
-
-              style:
-                  const TextStyle(
-                fontSize: 18,
-                fontWeight:
-                    FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -621,35 +898,43 @@ class _MaintenanceReportsState
           MainAxisAlignment.end,
 
       children: [
-
         Container(
-          width: 30,
+          width: 42,
 
           height:
-              150 * height,
+              170 * height,
 
           decoration:
               BoxDecoration(
-            color: Colors.blue,
+            color:
+                Colors.blue.shade600,
 
             borderRadius:
-                BorderRadius.circular(
-              5,
+                const BorderRadius.only(
+              topLeft:
+                  Radius.circular(8),
+              topRight:
+                  Radius.circular(8),
             ),
           ),
         ),
 
         const SizedBox(
-          height: 8,
+          height: 10,
         ),
 
         Text(
           month,
 
           style:
-              const TextStyle(
+              TextStyle(
             fontWeight:
-                FontWeight.bold,
+                FontWeight.w600,
+
+            fontSize: 12,
+
+            color:
+                Colors.grey.shade700,
           ),
         ),
       ],
@@ -661,7 +946,6 @@ class _MaintenanceReportsState
   // ============================================================
 
   void _showAddRepairDialog() {
-
     final houseController =
         TextEditingController();
 
@@ -674,133 +958,337 @@ class _MaintenanceReportsState
     showDialog(
       context: context,
 
-      builder: (context) {
-
-        return AlertDialog(
-
-          title:
-              const Text(
-            "Add Repair",
+      builder: (dialogContext) {
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(
+              20,
+            ),
           ),
 
-          content:
-              Column(
-            mainAxisSize:
-                MainAxisSize.min,
+          child: Container(
+            width: 500,
 
-            children: [
+            padding:
+                const EdgeInsets.all(30),
 
-              TextField(
-                controller:
-                    houseController,
+            child:
+                SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
 
-                decoration:
-                    const InputDecoration(
-                  labelText:
-                      "House Number",
+                children: [
+                  // Dialog Header
+                  Row(
+                    children: [
+                      Container(
+                        padding:
+                            const EdgeInsets
+                                .all(12),
 
-                  hintText:
-                      "e.g. A3",
-                ),
+                        decoration:
+                            BoxDecoration(
+                          color: Colors
+                              .blue
+                              .shade50,
+
+                          borderRadius:
+                              BorderRadius
+                                  .circular(
+                            12,
+                          ),
+                        ),
+
+                        child: Icon(
+                          Icons
+                              .build_outlined,
+
+                          color: Colors
+                              .blue
+                              .shade700,
+
+                          size: 28,
+                        ),
+                      ),
+
+                      const SizedBox(
+                        width: 15,
+                      ),
+
+                      const Column(
+                        crossAxisAlignment:
+                            CrossAxisAlignment
+                                .start,
+
+                        children: [
+                          Text(
+                            "Add Repair",
+
+                            style:
+                                TextStyle(
+                              fontSize: 22,
+                              fontWeight:
+                                  FontWeight
+                                      .bold,
+                            ),
+                          ),
+
+                          SizedBox(
+                            height: 4,
+                          ),
+
+                          Text(
+                            "Enter repair details below",
+
+                            style:
+                                TextStyle(
+                              color:
+                                  Colors.grey,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(
+                    height: 30,
+                  ),
+
+                  // House Number
+                  TextField(
+                    controller:
+                        houseController,
+
+                    decoration:
+                        InputDecoration(
+                      labelText:
+                          "House Number",
+
+                      hintText:
+                          "e.g. A3",
+
+                      prefixIcon:
+                          const Icon(
+                        Icons
+                            .home_outlined,
+                      ),
+
+                      filled: true,
+
+                      fillColor:
+                          Colors.grey
+                              .shade50,
+
+                      border:
+                          OutlineInputBorder(
+                        borderRadius:
+                            BorderRadius
+                                .circular(
+                          10,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 15,
+                  ),
+
+                  // Problem
+                  TextField(
+                    controller:
+                        problemController,
+
+                    decoration:
+                        InputDecoration(
+                      labelText:
+                          "Problem",
+
+                      hintText:
+                          "e.g. Plumbing",
+
+                      prefixIcon:
+                          const Icon(
+                        Icons
+                            .build_outlined,
+                      ),
+
+                      filled: true,
+
+                      fillColor:
+                          Colors.grey
+                              .shade50,
+
+                      border:
+                          OutlineInputBorder(
+                        borderRadius:
+                            BorderRadius
+                                .circular(
+                          10,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 15,
+                  ),
+
+                  // Cost
+                  TextField(
+                    controller:
+                        costController,
+
+                    keyboardType:
+                        TextInputType
+                            .number,
+
+                    decoration:
+                        InputDecoration(
+                      labelText:
+                          "Cost",
+
+                      hintText:
+                          "e.g. 3500",
+
+                      prefixIcon:
+                          const Icon(
+                        Icons
+                            .payments_outlined,
+                      ),
+
+                      filled: true,
+
+                      fillColor:
+                          Colors.grey
+                              .shade50,
+
+                      border:
+                          OutlineInputBorder(
+                        borderRadius:
+                            BorderRadius
+                                .circular(
+                          10,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: 30,
+                  ),
+
+                  // Buttons
+                  Row(
+                    mainAxisAlignment:
+                        MainAxisAlignment
+                            .end,
+
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(
+                            dialogContext,
+                          );
+                        },
+
+                        child:
+                            const Text(
+                          "Cancel",
+                        ),
+                      ),
+
+                      const SizedBox(
+                        width: 10,
+                      ),
+
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          if (houseController
+                                  .text
+                                  .isNotEmpty &&
+                              problemController
+                                  .text
+                                  .isNotEmpty &&
+                              costController
+                                  .text
+                                  .isNotEmpty) {
+                            setState(() {
+                              repairs.add({
+                                "house":
+                                    houseController
+                                        .text,
+
+                                "problem":
+                                    problemController
+                                        .text,
+
+                                "cost":
+                                    int.tryParse(
+                                          costController
+                                              .text,
+                                        ) ??
+                                        0,
+
+                                "status":
+                                    "Ongoing",
+                              });
+                            });
+
+                            Navigator.pop(
+                              dialogContext,
+                            );
+                          }
+                        },
+
+                        icon: const Icon(
+                          Icons.add,
+                        ),
+
+                        label:
+                            const Text(
+                          "Add Repair",
+                        ),
+
+                        style:
+                            ElevatedButton
+                                .styleFrom(
+                          backgroundColor:
+                              Colors
+                                  .blue
+                                  .shade700,
+
+                          foregroundColor:
+                              Colors.white,
+
+                          padding:
+                              const EdgeInsets
+                                  .symmetric(
+                            horizontal: 20,
+                            vertical: 14,
+                          ),
+
+                          shape:
+                              RoundedRectangleBorder(
+                            borderRadius:
+                                BorderRadius
+                                    .circular(
+                              10,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-
-              TextField(
-                controller:
-                    problemController,
-
-                decoration:
-                    const InputDecoration(
-                  labelText:
-                      "Problem",
-
-                  hintText:
-                      "e.g. Plumbing",
-                ),
-              ),
-
-              TextField(
-                controller:
-                    costController,
-
-                keyboardType:
-                    TextInputType.number,
-
-                decoration:
-                    const InputDecoration(
-                  labelText:
-                      "Cost",
-
-                  hintText:
-                      "e.g. 3500",
-                ),
-              ),
-            ],
+            ),
           ),
-
-          actions: [
-
-            TextButton(
-              onPressed: () {
-                Navigator.pop(
-                  context,
-                );
-              },
-
-              child:
-                  const Text(
-                "Cancel",
-              ),
-            ),
-
-            ElevatedButton(
-              onPressed: () {
-
-                if (houseController
-                        .text
-                        .isNotEmpty &&
-                    problemController
-                        .text
-                        .isNotEmpty &&
-                    costController
-                        .text
-                        .isNotEmpty) {
-
-                  setState(() {
-
-                    repairs.add({
-
-                      "house":
-                          houseController
-                              .text,
-
-                      "problem":
-                          problemController
-                              .text,
-
-                      "cost":
-                          int.tryParse(
-                                costController
-                                    .text,
-                              ) ??
-                              0,
-
-                      "status":
-                          "Ongoing",
-                    });
-                  });
-
-                  Navigator.pop(
-                    context,
-                  );
-                }
-              },
-
-              child:
-                  const Text(
-                "Add",
-              ),
-            ),
-          ],
         );
       },
     );

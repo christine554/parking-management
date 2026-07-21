@@ -65,146 +65,214 @@ class _RentPaymentsPageState
             context,
             setDialogState,
           ) {
-            return AlertDialog(
+            return Dialog(
               shape: RoundedRectangleBorder(
                 borderRadius:
-                    BorderRadius.circular(20),
+                    BorderRadius.circular(24),
               ),
-              title: Row(
-                children: [
-                  Container(
-                    padding:
-                        const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color:
-                          Colors.green.shade50,
-                      borderRadius:
-                          BorderRadius.circular(
-                        10,
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.payments_outlined,
-                      color:
-                          Colors.green.shade700,
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  const Text(
-                    'Record Payment',
-                  ),
-                ],
-              ),
-              content: SizedBox(
-                width: 450,
+              child: Container(
+                width: 500,
+                padding:
+                    const EdgeInsets.all(30),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment:
                         CrossAxisAlignment.start,
                     children: [
-                      // Tenant
-                      Container(
-                        padding:
-                            const EdgeInsets.all(
-                          15,
-                        ),
-                        decoration:
-                            BoxDecoration(
-                          color:
-                              Colors.grey.shade50,
-                          borderRadius:
-                              BorderRadius.circular(
-                            12,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor:
-                                  Colors.blue
-                                      .shade50,
-                              child: Text(
-                                tenant['name'][0]
-                                    .toUpperCase(),
-                                style: TextStyle(
-                                  color: Colors
-                                      .blue
-                                      .shade700,
-                                  fontWeight:
-                                      FontWeight
-                                          .bold,
-                                ),
+                      // ------------------------------------------------
+                      // DIALOG HEADER
+                      // ------------------------------------------------
+
+                      Row(
+                        children: [
+                          Container(
+                            width: 55,
+                            height: 55,
+                            decoration:
+                                BoxDecoration(
+                              color:
+                                  const Color(
+                                0xFFE0F7FA,
+                              ),
+                              borderRadius:
+                                  BorderRadius.circular(
+                                16,
                               ),
                             ),
-                            const SizedBox(
-                              width: 12,
+                            child: const Icon(
+                              Icons
+                                  .payments_rounded,
+                              color:
+                                  Color(
+                                0xFF008FA3,
+                              ),
+                              size: 28,
                             ),
-                            Column(
+                          ),
+
+                          const SizedBox(
+                            width: 15,
+                          ),
+
+                          const Expanded(
+                            child: Column(
                               crossAxisAlignment:
                                   CrossAxisAlignment
                                       .start,
                               children: [
                                 Text(
-                                  tenant['name'],
+                                  'Record Payment',
                                   style:
-                                      const TextStyle(
+                                      TextStyle(
+                                    fontSize: 23,
                                     fontWeight:
                                         FontWeight
                                             .bold,
+                                    color:
+                                        Color(
+                                      0xFF263238,
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(
-                                  height: 4,
+                                SizedBox(
+                                  height: 5,
                                 ),
                                 Text(
-                                  'House ${tenant['house']} • KSh ${tenant['rent']}',
-                                  style: TextStyle(
-                                    color: Colors
-                                        .grey
-                                        .shade600,
+                                  'Enter payment details for this tenant',
+                                  style:
+                                      TextStyle(
+                                    color:
+                                        Colors.grey,
+                                    fontSize: 14,
                                   ),
                                 ),
                               ],
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(
+                        height: 25,
+                      ),
+
+                      // ------------------------------------------------
+                      // TENANT INFORMATION
+                      // ------------------------------------------------
+
+                      Container(
+                        padding:
+                            const EdgeInsets.all(
+                          16,
+                        ),
+                        decoration:
+                            BoxDecoration(
+                          color:
+                              const Color(
+                            0xFFF5F9FA,
+                          ),
+                          borderRadius:
+                              BorderRadius.circular(
+                            16,
+                          ),
+                          border: Border.all(
+                            color:
+                                Colors.grey.shade200,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 27,
+                              backgroundColor:
+                                  const Color(
+                                0xFFE0F7FA,
+                              ),
+                              child: Text(
+                                tenant['name'][0]
+                                    .toUpperCase(),
+                                style:
+                                    const TextStyle(
+                                  color:
+                                      Color(
+                                    0xFF008FA3,
+                                  ),
+                                  fontSize: 20,
+                                  fontWeight:
+                                      FontWeight.bold,
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(
+                              width: 14,
+                            ),
+
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment:
+                                    CrossAxisAlignment
+                                        .start,
+                                children: [
+                                  Text(
+                                    tenant['name'],
+                                    style:
+                                        const TextStyle(
+                                      fontWeight:
+                                          FontWeight
+                                              .bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+
+                                  Text(
+                                    'House ${tenant['house']} • KSh ${tenant['rent']}',
+                                    style:
+                                        TextStyle(
+                                      color: Colors
+                                          .grey
+                                          .shade600,
+                                      fontSize: 13,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
 
                       const SizedBox(
-                        height: 20,
+                        height: 25,
                       ),
 
-                      // Payment Date
-                      TextField(
+                      // ------------------------------------------------
+                      // PAYMENT DATE
+                      // ------------------------------------------------
+
+                      _dialogInputField(
                         controller:
                             paymentDateController,
-                        decoration:
-                            InputDecoration(
-                          labelText:
-                              'Payment Date',
-                          hintText:
-                              'DD/MM/YYYY',
-                          prefixIcon:
-                              const Icon(
-                            Icons
-                                .calendar_today_outlined,
-                          ),
-                          border:
-                              OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius
-                                    .circular(
-                              10,
-                            ),
-                          ),
-                        ),
+                        label:
+                            'Payment Date',
+                        hint:
+                            'DD/MM/YYYY',
+                        icon: Icons
+                            .calendar_today_outlined,
                       ),
 
                       const SizedBox(
                         height: 15,
                       ),
 
-                      // Payment Method
+                      // ------------------------------------------------
+                      // PAYMENT METHOD
+                      // ------------------------------------------------
+
                       DropdownButtonFormField<
                           String>(
                         value:
@@ -217,13 +285,52 @@ class _RentPaymentsPageState
                               const Icon(
                             Icons
                                 .account_balance_wallet_outlined,
+                            color:
+                                Color(
+                              0xFF008FA3,
+                            ),
+                          ),
+                          filled: true,
+                          fillColor:
+                              const Color(
+                            0xFFF7F9FA,
                           ),
                           border:
                               OutlineInputBorder(
                             borderRadius:
                                 BorderRadius
                                     .circular(
-                              10,
+                              14,
+                            ),
+                            borderSide:
+                                BorderSide
+                                    .none,
+                          ),
+                          enabledBorder:
+                              OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius
+                                    .circular(
+                              14,
+                            ),
+                            borderSide:
+                                BorderSide
+                                    .none,
+                          ),
+                          focusedBorder:
+                              OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius
+                                    .circular(
+                              14,
+                            ),
+                            borderSide:
+                                const BorderSide(
+                              color:
+                                  Color(
+                                0xFF008FA3,
+                              ),
+                              width: 2,
                             ),
                           ),
                         ),
@@ -256,117 +363,203 @@ class _RentPaymentsPageState
                         height: 15,
                       ),
 
-                      // Transaction Reference
-                      TextField(
+                      // ------------------------------------------------
+                      // TRANSACTION REFERENCE
+                      // ------------------------------------------------
+
+                      _dialogInputField(
                         controller:
                             referenceController,
-                        decoration:
-                            InputDecoration(
-                          labelText:
-                              'Transaction Reference',
-                          hintText:
-                              'Optional',
-                          prefixIcon:
-                              const Icon(
-                            Icons
-                                .receipt_long_outlined,
-                          ),
-                          border:
-                              OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius
-                                    .circular(
-                              10,
+                        label:
+                            'Transaction Reference',
+                        hint:
+                            'Optional',
+                        icon: Icons
+                            .receipt_long_outlined,
+                      ),
+
+                      const SizedBox(
+                        height: 30,
+                      ),
+
+                      // ------------------------------------------------
+                      // BUTTONS
+                      // ------------------------------------------------
+
+                      Row(
+                        mainAxisAlignment:
+                            MainAxisAlignment.end,
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(
+                                dialogContext,
+                              );
+                            },
+                            child:
+                                const Text(
+                              'Cancel',
+                              style:
+                                  TextStyle(
+                                color:
+                                    Colors.grey,
+                              ),
                             ),
                           ),
-                        ),
+
+                          const SizedBox(
+                            width: 10,
+                          ),
+
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              if (paymentDateController
+                                  .text
+                                  .isEmpty) {
+                                ScaffoldMessenger
+                                    .of(
+                                  context,
+                                ).showSnackBar(
+                                  const SnackBar(
+                                    content:
+                                        Text(
+                                      'Please enter the payment date.',
+                                    ),
+                                  ),
+                                );
+                                return;
+                              }
+
+                              final tenantData =
+                                  Provider.of<
+                                      TenantData>(
+                                context,
+                                listen: false,
+                              );
+
+                              tenantData.recordPayment(
+                                tenant: tenant,
+                                paymentDate:
+                                    paymentDateController
+                                        .text,
+                                paymentMethod:
+                                    selectedMethod,
+                                transactionReference:
+                                    referenceController
+                                        .text,
+                              );
+
+                              Navigator.pop(
+                                dialogContext,
+                              );
+
+                              ScaffoldMessenger
+                                  .of(
+                                context,
+                              ).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Payment recorded for ${tenant['name']}.',
+                                  ),
+                                  behavior:
+                                      SnackBarBehavior
+                                          .floating,
+                                ),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.check_rounded,
+                            ),
+                            label:
+                                const Text(
+                              'Record Payment',
+                            ),
+                            style:
+                                ElevatedButton
+                                    .styleFrom(
+                              backgroundColor:
+                                  const Color(
+                                0xFF00897B,
+                              ),
+                              foregroundColor:
+                                  Colors.white,
+                              padding:
+                                  const EdgeInsets
+                                      .symmetric(
+                                horizontal: 18,
+                                vertical: 14,
+                              ),
+                              shape:
+                                  RoundedRectangleBorder(
+                                borderRadius:
+                                    BorderRadius
+                                        .circular(
+                                  12,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
               ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(
-                      dialogContext,
-                    );
-                  },
-                  child: const Text(
-                    'Cancel',
-                  ),
-                ),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    if (paymentDateController
-                        .text
-                        .isEmpty) {
-                      ScaffoldMessenger.of(
-                        context,
-                      ).showSnackBar(
-                        const SnackBar(
-                          content: Text(
-                            'Please enter the payment date.',
-                          ),
-                        ),
-                      );
-                      return;
-                    }
-
-                    final tenantData =
-                        Provider.of<TenantData>(
-                      context,
-                      listen: false,
-                    );
-
-                    tenantData.recordPayment(
-                      tenant: tenant,
-                      paymentDate:
-                          paymentDateController
-                              .text,
-                      paymentMethod:
-                          selectedMethod,
-                      transactionReference:
-                          referenceController
-                              .text,
-                    );
-
-                    Navigator.pop(
-                      dialogContext,
-                    );
-
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                          'Payment recorded for ${tenant['name']}.',
-                        ),
-                        behavior:
-                            SnackBarBehavior
-                                .floating,
-                      ),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.check,
-                  ),
-                  label: const Text(
-                    'Record Payment',
-                  ),
-                  style:
-                      ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Colors.green.shade700,
-                    foregroundColor:
-                        Colors.white,
-                  ),
-                ),
-              ],
             );
           },
         );
       },
+    );
+  }
+
+  // ------------------------------------------------------------
+  // DIALOG INPUT FIELD
+  // ------------------------------------------------------------
+
+  Widget _dialogInputField({
+    required TextEditingController controller,
+    required String label,
+    required String hint,
+    required IconData icon,
+  }) {
+    return TextField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: label,
+        hintText: hint,
+        prefixIcon: Icon(
+          icon,
+          color: const Color(
+            0xFF008FA3,
+          ),
+        ),
+        filled: true,
+        fillColor: const Color(
+          0xFFF7F9FA,
+        ),
+        border: OutlineInputBorder(
+          borderRadius:
+              BorderRadius.circular(14),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder:
+            OutlineInputBorder(
+          borderRadius:
+              BorderRadius.circular(14),
+          borderSide: BorderSide.none,
+        ),
+        focusedBorder:
+            OutlineInputBorder(
+          borderRadius:
+              BorderRadius.circular(14),
+          borderSide:
+              const BorderSide(
+            color:
+                Color(0xFF008FA3),
+            width: 2,
+          ),
+        ),
+      ),
     );
   }
 
@@ -383,110 +576,203 @@ class _RentPaymentsPageState
     showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
+        return Dialog(
+          shape:
+              RoundedRectangleBorder(
             borderRadius:
-                BorderRadius.circular(20),
+                BorderRadius.circular(24),
           ),
-          title: Text(
-            '${tenant['name']} - Payment History',
-          ),
-          content: SizedBox(
-            width: 450,
-            child: paymentStatus == 'Paid'
-                ? Column(
-                    mainAxisSize:
-                        MainAxisSize.min,
-                    children: [
-                      _historyRow(
-                        'Amount',
-                        'KSh ${tenant['rent']}',
-                        Icons.payments_outlined,
-                      ),
-                      _historyRow(
-                        'Payment Date',
-                        tenant[
-                            'paymentDate'],
-                        Icons
-                            .calendar_today_outlined,
-                      ),
-                      _historyRow(
-                        'Payment Method',
-                        tenant[
-                            'paymentMethod'],
-                        Icons
-                            .account_balance_wallet_outlined,
-                      ),
-                      _historyRow(
-                        'Transaction Reference',
-                        tenant[
-                            'transactionReference']
-                            .toString()
-                            .isEmpty
-                            ? 'Not provided'
-                            : tenant[
-                                'transactionReference'],
-                        Icons
-                            .receipt_long_outlined,
-                      ),
-                      _historyRow(
-                        'Status',
-                        'Paid',
-                        Icons
-                            .check_circle_outline,
-                      ),
-                    ],
-                  )
-                : Column(
-                    mainAxisSize:
-                        MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons
-                            .history_toggle_off,
-                        size: 60,
+          child: Container(
+            width: 480,
+            padding:
+                const EdgeInsets.all(30),
+            child: Column(
+              mainAxisSize:
+                  MainAxisSize.min,
+              children: [
+                // Header
+                Row(
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration:
+                          const BoxDecoration(
                         color:
-                            Colors.orange.shade400,
+                            Color(0xFFE0F7FA),
+                        shape:
+                            BoxShape.circle,
                       ),
-                      const SizedBox(
-                        height: 15,
+                      child: const Icon(
+                        Icons.history_rounded,
+                        color:
+                            Color(0xFF008FA3),
                       ),
-                      const Text(
-                        'No payment recorded yet.',
-                        textAlign:
-                            TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight:
-                              FontWeight.bold,
-                        ),
+                    ),
+
+                    const SizedBox(
+                      width: 15,
+                    ),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment:
+                            CrossAxisAlignment
+                                .start,
+                        children: [
+                          Text(
+                            '${tenant['name']}',
+                            style:
+                                const TextStyle(
+                              fontSize: 20,
+                              fontWeight:
+                                  FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            'Payment History',
+                            style:
+                                TextStyle(
+                              color: Colors
+                                  .grey
+                                  .shade600,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(
-                        height: 8,
+                    ),
+                  ],
+                ),
+
+                const SizedBox(
+                  height: 25,
+                ),
+
+                paymentStatus == 'Paid'
+                    ? Column(
+                        children: [
+                          _historyRow(
+                            'Amount',
+                            'KSh ${tenant['rent']}',
+                            Icons
+                                .payments_outlined,
+                          ),
+                          _historyRow(
+                            'Payment Date',
+                            tenant[
+                                'paymentDate'],
+                            Icons
+                                .calendar_today_outlined,
+                          ),
+                          _historyRow(
+                            'Payment Method',
+                            tenant[
+                                'paymentMethod'],
+                            Icons
+                                .account_balance_wallet_outlined,
+                          ),
+                          _historyRow(
+                            'Transaction Reference',
+                            tenant[
+                                    'transactionReference']
+                                .toString()
+                                .isEmpty
+                                ? 'Not provided'
+                                : tenant[
+                                    'transactionReference'],
+                            Icons
+                                .receipt_long_outlined,
+                          ),
+                          _historyRow(
+                            'Status',
+                            'Paid',
+                            Icons
+                                .check_circle_outline,
+                          ),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          Container(
+                            width: 75,
+                            height: 75,
+                            decoration:
+                                BoxDecoration(
+                              color: Colors
+                                  .orange
+                                  .shade50,
+                              shape:
+                                  BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons
+                                  .history_toggle_off,
+                              size: 40,
+                              color: Colors
+                                  .orange
+                                  .shade400,
+                            ),
+                          ),
+
+                          const SizedBox(
+                            height: 15,
+                          ),
+
+                          const Text(
+                            'No payment recorded yet.',
+                            textAlign:
+                                TextAlign.center,
+                            style:
+                                TextStyle(
+                              fontSize: 16,
+                              fontWeight:
+                                  FontWeight.bold,
+                            ),
+                          ),
+
+                          const SizedBox(
+                            height: 8,
+                          ),
+
+                          Text(
+                            'This tenant currently has a pending rent payment.',
+                            textAlign:
+                                TextAlign.center,
+                            style:
+                                TextStyle(
+                              color: Colors
+                                  .grey
+                                  .shade600,
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        'This tenant currently has a pending rent payment.',
-                        textAlign:
-                            TextAlign.center,
-                        style: TextStyle(
-                          color: Colors
-                              .grey
-                              .shade600,
-                        ),
-                      ),
-                    ],
+
+                const SizedBox(
+                  height: 25,
+                ),
+
+                Align(
+                  alignment:
+                      Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.pop(
+                        context,
+                      );
+                    },
+                    child:
+                        const Text(
+                      'Close',
+                    ),
                   ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'Close',
-              ),
+                ),
+              ],
             ),
-          ],
+          ),
         );
       },
     );
@@ -502,18 +788,30 @@ class _RentPaymentsPageState
     IconData icon,
   ) {
     return Container(
+      margin:
+          const EdgeInsets.only(
+        bottom: 10,
+      ),
       padding:
-          const EdgeInsets.symmetric(
-        vertical: 12,
+          const EdgeInsets.all(14),
+      decoration:
+          BoxDecoration(
+        color:
+            const Color(0xFFF7F9FA),
+        borderRadius:
+            BorderRadius.circular(12),
       ),
       child: Row(
         children: [
           Icon(
             icon,
             size: 20,
-            color: Colors.blue.shade700,
+            color:
+                const Color(0xFF008FA3),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(
+            width: 12,
+          ),
           Expanded(
             child: Text(
               title,
@@ -523,11 +821,16 @@ class _RentPaymentsPageState
               ),
             ),
           ),
-          Text(
-            value,
-            style: const TextStyle(
-              fontWeight:
-                  FontWeight.bold,
+          Flexible(
+            child: Text(
+              value,
+              textAlign:
+                  TextAlign.right,
+              style:
+                  const TextStyle(
+                fontWeight:
+                    FontWeight.bold,
+              ),
             ),
           ),
         ],
@@ -571,59 +874,83 @@ class _RentPaymentsPageState
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius:
-              BorderRadius.circular(16),
+              BorderRadius.circular(18),
           border: Border.all(
             color:
                 Colors.grey.shade200,
           ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black
+                  .withOpacity(0.04),
+              blurRadius: 12,
+              offset:
+                  const Offset(0, 5),
+            ),
+          ],
         ),
         child: Row(
           children: [
             Container(
-              padding:
-                  const EdgeInsets.all(12),
+              width: 52,
+              height: 52,
               decoration:
                   BoxDecoration(
                 color:
-                    color.withOpacity(0.1),
+                    color.withOpacity(
+                  0.1,
+                ),
                 borderRadius:
                     BorderRadius.circular(
-                  12,
+                  15,
                 ),
               ),
               child: Icon(
                 icon,
                 color: color,
-                size: 25,
+                size: 26,
               ),
             ),
-            const SizedBox(width: 15),
-            Column(
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors
-                        .grey
-                        .shade600,
-                    fontSize: 13,
+
+            const SizedBox(
+              width: 15,
+            ),
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment
+                        .start,
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors
+                          .grey
+                          .shade600,
+                      fontSize: 13,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  value,
-                  style:
-                      const TextStyle(
-                    fontSize: 22,
-                    fontWeight:
-                        FontWeight.bold,
+
+                  const SizedBox(
+                    height: 5,
                   ),
-                ),
-              ],
+
+                  Text(
+                    value,
+                    overflow:
+                        TextOverflow.ellipsis,
+                    style:
+                        const TextStyle(
+                      fontSize: 20,
+                      fontWeight:
+                          FontWeight.bold,
+                      color:
+                          Color(0xFF263238),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -646,7 +973,8 @@ class _RentPaymentsPageState
         horizontal: 12,
         vertical: 7,
       ),
-      decoration: BoxDecoration(
+      decoration:
+          BoxDecoration(
         color: isPaid
             ? Colors.green.shade50
             : Colors.orange.shade50,
@@ -668,7 +996,11 @@ class _RentPaymentsPageState
                 ? Colors.green.shade700
                 : Colors.orange.shade700,
           ),
-          const SizedBox(width: 5),
+
+          const SizedBox(
+            width: 5,
+          ),
+
           Text(
             isPaid
                 ? 'Paid'
@@ -742,7 +1074,7 @@ class _RentPaymentsPageState
 
     return Scaffold(
       backgroundColor:
-          const Color(0xFFF7F8FC),
+          const Color(0xFFF5F9FA),
 
       body: SafeArea(
         child: Padding(
@@ -759,10 +1091,34 @@ class _RentPaymentsPageState
               // ------------------------------------------------
 
               Row(
-                mainAxisAlignment:
-                    MainAxisAlignment
-                        .spaceBetween,
                 children: [
+                  Container(
+                    width: 58,
+                    height: 58,
+                    decoration:
+                        BoxDecoration(
+                      color:
+                          const Color(
+                        0xFFE0F7FA,
+                      ),
+                      borderRadius:
+                          BorderRadius.circular(
+                        16,
+                      ),
+                    ),
+                    child: const Icon(
+                      Icons
+                          .payments_rounded,
+                      color:
+                          Color(0xFF008FA3),
+                      size: 30,
+                    ),
+                  ),
+
+                  const SizedBox(
+                    width: 16,
+                  ),
+
                   Column(
                     crossAxisAlignment:
                         CrossAxisAlignment
@@ -776,11 +1132,15 @@ class _RentPaymentsPageState
                           fontWeight:
                               FontWeight
                                   .bold,
+                          color:
+                              Color(0xFF263238),
                         ),
                       ),
+
                       const SizedBox(
                         height: 7,
                       ),
+
                       Text(
                         'Track rent payments and payment history for every tenant',
                         style:
@@ -797,7 +1157,7 @@ class _RentPaymentsPageState
               ),
 
               const SizedBox(
-                height: 25,
+                height: 30,
               ),
 
               // ------------------------------------------------
@@ -811,7 +1171,9 @@ class _RentPaymentsPageState
                     'KSh $totalRent',
                     Icons
                         .account_balance_wallet_outlined,
-                    Colors.blue,
+                    const Color(
+                      0xFF008FA3,
+                    ),
                   ),
 
                   const SizedBox(
@@ -823,7 +1185,9 @@ class _RentPaymentsPageState
                     'KSh $paidAmount',
                     Icons
                         .check_circle_outline,
-                    Colors.green,
+                    const Color(
+                      0xFF2E7D32,
+                    ),
                   ),
 
                   const SizedBox(
@@ -835,7 +1199,9 @@ class _RentPaymentsPageState
                     'KSh $pendingAmount',
                     Icons
                         .pending_outlined,
-                    Colors.orange,
+                    const Color(
+                      0xFFE67E22,
+                    ),
                   ),
 
                   const SizedBox(
@@ -848,90 +1214,72 @@ class _RentPaymentsPageState
                         .toString(),
                     Icons
                         .people_outline,
-                    Colors.purple,
+                    const Color(
+                      0xFF7B1FA2,
+                    ),
                   ),
                 ],
               ),
 
               const SizedBox(
-                height: 25,
+                height: 30,
               ),
 
               // ------------------------------------------------
-              // FILTER
+              // FILTER SECTION
               // ------------------------------------------------
 
-              Row(
-                children: [
-                  const Text(
-                    'Filter:',
-                    style:
-                        TextStyle(
-                      fontWeight:
-                          FontWeight.bold,
+              Container(
+                padding:
+                    const EdgeInsets.all(
+                  6,
+                ),
+                decoration:
+                    BoxDecoration(
+                  color: Colors.white,
+                  borderRadius:
+                      BorderRadius.circular(
+                    14,
+                  ),
+                  border: Border.all(
+                    color:
+                        Colors.grey.shade200,
+                  ),
+                ),
+                child: Row(
+                  mainAxisSize:
+                      MainAxisSize.min,
+                  children: [
+                    const Padding(
+                      padding:
+                          EdgeInsets.symmetric(
+                        horizontal: 12,
+                      ),
+                      child: Text(
+                        'Filter:',
+                        style:
+                            TextStyle(
+                          fontWeight:
+                              FontWeight.bold,
+                          color:
+                              Color(0xFF37474F),
+                        ),
+                      ),
                     ),
-                  ),
 
-                  const SizedBox(
-                    width: 10,
-                  ),
-
-                  ChoiceChip(
-                    label:
-                        const Text(
+                    _filterChip(
                       'All',
                     ),
-                    selected:
-                        selectedFilter ==
-                            'All',
-                    onSelected: (_) {
-                      setState(() {
-                        selectedFilter =
-                            'All';
-                      });
-                    },
-                  ),
 
-                  const SizedBox(
-                    width: 8,
-                  ),
-
-                  ChoiceChip(
-                    label:
-                        const Text(
+                    _filterChip(
                       'Paid',
                     ),
-                    selected:
-                        selectedFilter ==
-                            'Paid',
-                    onSelected: (_) {
-                      setState(() {
-                        selectedFilter =
-                            'Paid';
-                      });
-                    },
-                  ),
 
-                  const SizedBox(
-                    width: 8,
-                  ),
-
-                  ChoiceChip(
-                    label:
-                        const Text(
+                    _filterChip(
                       'Pending',
                     ),
-                    selected:
-                        selectedFilter ==
-                            'Pending',
-                    onSelected: (_) {
-                      setState(() {
-                        selectedFilter =
-                            'Pending';
-                      });
-                    },
-                  ),
-                ],
+                  ],
+                ),
               ),
 
               const SizedBox(
@@ -947,16 +1295,35 @@ class _RentPaymentsPageState
                     const EdgeInsets
                         .symmetric(
                   horizontal: 20,
-                  vertical: 15,
+                  vertical: 16,
                 ),
                 decoration:
                     BoxDecoration(
-                  color:
-                      Colors.blue.shade700,
+                  gradient:
+                      const LinearGradient(
+                    colors: [
+                      Color(0xFF006978),
+                      Color(0xFF008FA3),
+                    ],
+                  ),
                   borderRadius:
                       BorderRadius.circular(
-                    12,
+                    14,
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black
+                          .withOpacity(
+                        0.08,
+                      ),
+                      blurRadius: 10,
+                      offset:
+                          const Offset(
+                        0,
+                        4,
+                      ),
+                    ),
+                  ],
                 ),
                 child: Row(
                   children: [
@@ -1064,251 +1431,366 @@ class _RentPaymentsPageState
               // ------------------------------------------------
 
               Expanded(
-                child: filteredTenants
-                        .isEmpty
-                    ? Center(
-                        child: Text(
-                          selectedFilter ==
-                                  'All'
-                              ? 'No tenants found.'
-                              : 'No $selectedFilter payments found.',
-                          style:
-                              TextStyle(
-                            color: Colors
-                                .grey
-                                .shade600,
-                            fontSize: 16,
+                child:
+                    filteredTenants.isEmpty
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment
+                                      .center,
+                              children: [
+                                Container(
+                                  width: 80,
+                                  height: 80,
+                                  decoration:
+                                      BoxDecoration(
+                                    color: Colors
+                                        .grey
+                                        .shade100,
+                                    shape:
+                                        BoxShape
+                                            .circle,
+                                  ),
+                                  child:
+                                      Icon(
+                                    Icons
+                                        .receipt_long_outlined,
+                                    size: 40,
+                                    color: Colors
+                                        .grey
+                                        .shade400,
+                                  ),
+                                ),
+
+                                const SizedBox(
+                                  height: 15,
+                                ),
+
+                                Text(
+                                  selectedFilter ==
+                                          'All'
+                                      ? 'No tenants found.'
+                                      : 'No $selectedFilter payments found.',
+                                  style:
+                                      TextStyle(
+                                    color: Colors
+                                        .grey
+                                        .shade600,
+                                    fontSize: 16,
+                                    fontWeight:
+                                        FontWeight
+                                            .w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : ListView.builder(
+                            itemCount:
+                                filteredTenants
+                                    .length,
+                            itemBuilder:
+                                (
+                              context,
+                              index,
+                            ) {
+                              final tenant =
+                                  filteredTenants[
+                                      index];
+
+                              return _paymentCard(
+                                tenant,
+                              );
+                            },
                           ),
-                        ),
-                      )
-                    : ListView.builder(
-                        itemCount:
-                            filteredTenants
-                                .length,
-                        itemBuilder:
-                            (
-                          context,
-                          index,
-                        ) {
-                          final tenant =
-                              filteredTenants[
-                                  index];
-
-                          return Card(
-                            elevation: 0,
-                            margin:
-                                const EdgeInsets
-                                    .only(
-                              bottom: 12,
-                            ),
-                            shape:
-                                RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius
-                                      .circular(
-                                16,
-                              ),
-                              side:
-                                  BorderSide(
-                                color: Colors
-                                    .grey
-                                    .shade200,
-                              ),
-                            ),
-                            child:
-                                Padding(
-                              padding:
-                                  const EdgeInsets
-                                      .all(
-                                18,
-                              ),
-                              child: Row(
-                                children: [
-                                  // Tenant
-                                  Expanded(
-                                    flex: 2,
-                                    child:
-                                        Row(
-                                      children: [
-                                        CircleAvatar(
-                                          backgroundColor:
-                                              Colors.blue.shade50,
-                                          child:
-                                              Text(
-                                            tenant[
-                                                    'name'][0]
-                                                .toUpperCase(),
-                                            style:
-                                                TextStyle(
-                                              color:
-                                                  Colors.blue.shade700,
-                                              fontWeight:
-                                                  FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width:
-                                              12,
-                                        ),
-                                        Text(
-                                          tenant[
-                                              'name'],
-                                          style:
-                                              const TextStyle(
-                                            fontWeight:
-                                                FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-
-                                  // House
-                                  Expanded(
-                                    child:
-                                        Text(
-                                      tenant[
-                                          'house'],
-                                      style:
-                                          const TextStyle(
-                                        fontWeight:
-                                            FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-
-                                  // Rent
-                                  Expanded(
-                                    child:
-                                        Text(
-                                      'KSh ${tenant['rent']}',
-                                      style:
-                                          const TextStyle(
-                                        fontWeight:
-                                            FontWeight.w600,
-                                      ),
-                                    ),
-                                  ),
-
-                                  // Status
-                                  Expanded(
-                                    child:
-                                        _paymentStatus(
-                                      tenant[
-                                          'paymentStatus'],
-                                    ),
-                                  ),
-
-                                  // Payment Date
-                                  Expanded(
-                                    child:
-                                        Text(
-                                      tenant[
-                                              'paymentDate']
-                                          .toString()
-                                          .isEmpty
-                                          ? '—'
-                                          : tenant[
-                                              'paymentDate'],
-                                      style:
-                                          TextStyle(
-                                        color: Colors
-                                            .grey
-                                            .shade700,
-                                      ),
-                                    ),
-                                  ),
-
-                                  // Actions
-                                  SizedBox(
-                                    width:
-                                        300,
-                                    child:
-                                        Row(
-                                      children: [
-                                        if (tenant[
-                                                'paymentStatus'] ==
-                                            'Pending')
-                                          ElevatedButton
-                                              .icon(
-                                            onPressed:
-                                                () {
-                                              recordPayment(
-                                                tenant,
-                                              );
-                                            },
-                                            icon:
-                                                const Icon(
-                                              Icons
-                                                  .payments_outlined,
-                                              size:
-                                                  17,
-                                            ),
-                                            label:
-                                                const Text(
-                                              'Record Payment',
-                                            ),
-                                            style:
-                                                ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  Colors.green.shade700,
-                                              foregroundColor:
-                                                  Colors.white,
-                                            ),
-                                          ),
-
-                                        if (tenant[
-                                                'paymentStatus'] ==
-                                            'Paid')
-                                          IconButton(
-                                            tooltip:
-                                                'View Payment History',
-                                            onPressed:
-                                                () {
-                                              viewPaymentHistory(
-                                                tenant,
-                                              );
-                                            },
-                                            icon:
-                                                Icon(
-                                              Icons
-                                                  .history,
-                                              color:
-                                                  Colors.blue.shade700,
-                                            ),
-                                          ),
-
-                                        IconButton(
-                                          tooltip:
-                                              'Send Reminder',
-                                          onPressed:
-                                              () {
-                                            sendReminder(
-                                              tenant,
-                                            );
-                                          },
-                                          icon:
-                                              Icon(
-                                            Icons
-                                                .notifications_none,
-                                            color:
-                                                Colors.orange.shade700,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  // ------------------------------------------------------------
+  // FILTER CHIP
+  // ------------------------------------------------------------
+
+  Widget _filterChip(
+    String filter,
+  ) {
+    final isSelected =
+        selectedFilter == filter;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedFilter =
+              filter;
+        });
+      },
+      child: AnimatedContainer(
+        duration:
+            const Duration(
+          milliseconds: 200,
+        ),
+        padding:
+            const EdgeInsets.symmetric(
+          horizontal: 18,
+          vertical: 10,
+        ),
+        decoration:
+            BoxDecoration(
+          color: isSelected
+              ? const Color(
+                  0xFF008FA3,
+                )
+              : Colors.transparent,
+          borderRadius:
+              BorderRadius.circular(
+            10,
+          ),
+        ),
+        child: Text(
+          filter,
+          style: TextStyle(
+            color: isSelected
+                ? Colors.white
+                : Colors.grey.shade700,
+            fontWeight:
+                FontWeight.w600,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // ------------------------------------------------------------
+  // PAYMENT CARD
+  // ------------------------------------------------------------
+
+  Widget _paymentCard(
+    Map<String, dynamic> tenant,
+  ) {
+    return Container(
+      margin:
+          const EdgeInsets.only(
+        bottom: 12,
+      ),
+      padding:
+          const EdgeInsets.all(18),
+      decoration:
+          BoxDecoration(
+        color: Colors.white,
+        borderRadius:
+            BorderRadius.circular(18),
+        border: Border.all(
+          color:
+              Colors.grey.shade200,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black
+                .withOpacity(0.035),
+            blurRadius: 10,
+            offset:
+                const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          // Tenant
+          Expanded(
+            flex: 2,
+            child: Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration:
+                      const BoxDecoration(
+                    color:
+                        Color(0xFFE0F7FA),
+                    shape:
+                        BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: Text(
+                      tenant['name'][0]
+                          .toUpperCase(),
+                      style:
+                          const TextStyle(
+                        color:
+                            Color(0xFF008FA3),
+                        fontSize: 18,
+                        fontWeight:
+                            FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(
+                  width: 12,
+                ),
+
+                Expanded(
+                  child: Text(
+                    tenant['name'],
+                    overflow:
+                        TextOverflow
+                            .ellipsis,
+                    style:
+                        const TextStyle(
+                      fontWeight:
+                          FontWeight.bold,
+                      fontSize: 15,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // House
+          Expanded(
+            child: Text(
+              tenant['house'],
+              style:
+                  const TextStyle(
+                fontWeight:
+                    FontWeight.w600,
+              ),
+            ),
+          ),
+
+          // Rent
+          Expanded(
+            child: Text(
+              'KSh ${tenant['rent']}',
+              style:
+                  const TextStyle(
+                fontWeight:
+                    FontWeight.w600,
+              ),
+            ),
+          ),
+
+          // Status
+          Expanded(
+            child: _paymentStatus(
+              tenant[
+                  'paymentStatus'],
+            ),
+          ),
+
+          // Payment Date
+          Expanded(
+            child: Text(
+              tenant[
+                          'paymentDate']
+                      .toString()
+                      .isEmpty
+                  ? '—'
+                  : tenant[
+                      'paymentDate'],
+              style: TextStyle(
+                color: Colors
+                    .grey
+                    .shade700,
+              ),
+            ),
+          ),
+
+          // Actions
+          SizedBox(
+            width: 300,
+            child: Row(
+              children: [
+                if (tenant[
+                        'paymentStatus'] ==
+                    'Pending')
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      recordPayment(
+                        tenant,
+                      );
+                    },
+                    icon:
+                        const Icon(
+                      Icons
+                          .payments_outlined,
+                      size: 17,
+                    ),
+                    label:
+                        const Text(
+                      'Record Payment',
+                    ),
+                    style:
+                        ElevatedButton
+                            .styleFrom(
+                      backgroundColor:
+                          const Color(
+                        0xFF00897B,
+                      ),
+                      foregroundColor:
+                          Colors.white,
+                      padding:
+                          const EdgeInsets
+                              .symmetric(
+                        horizontal: 14,
+                        vertical: 12,
+                      ),
+                      shape:
+                          RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius
+                                .circular(
+                          10,
+                        ),
+                      ),
+                    ),
+                  ),
+
+                if (tenant[
+                        'paymentStatus'] ==
+                    'Paid')
+                  IconButton(
+                    tooltip:
+                        'View Payment History',
+                    onPressed: () {
+                      viewPaymentHistory(
+                        tenant,
+                      );
+                    },
+                    icon: const Icon(
+                      Icons
+                          .history_rounded,
+                      color:
+                          Color(0xFF008FA3),
+                    ),
+                  ),
+
+                IconButton(
+                  tooltip:
+                      'Send Reminder',
+                  onPressed: () {
+                    sendReminder(
+                      tenant,
+                    );
+                  },
+                  icon: Icon(
+                    Icons
+                        .notifications_none_rounded,
+                    color: Colors
+                        .orange
+                        .shade700,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
