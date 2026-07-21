@@ -10,6 +10,6 @@ class BookingHistory extends StatefulWidget {
 class _BookingHistoryState extends State<BookingHistory> {
   @override
   Widget build(BuildContext context) {
-    return Text("BookingHistory");
+    return Text("reports");
   }
 }

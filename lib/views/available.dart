@@ -10,6 +10,6 @@ class Availableslots extends StatefulWidget {
 class _AvailableslotsState extends State<Availableslots> {
   @override
   Widget build(BuildContext context) {
-    return Text("Availableslots");
+    return Text("payments");
   }
 }

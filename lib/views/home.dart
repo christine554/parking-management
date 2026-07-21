@@ -7,6 +7,8 @@ import 'package:flutter_application_2/views/dashboard.dart';
 import 'package:flutter_application_2/views/home.dart' as body;
 
 var screens = [Dashboard(), Bookedslots(), Availableslots(), BookingHistory()];
+
+
   
 int position=0;
 class HomeScreen extends StatefulWidget {
@@ -24,9 +26,9 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.blueAccent,
         items: <Widget>[
           Icon(Icons.dashboard, size: 30),
-          Icon(Icons.book_online, size: 30),
-          Icon(Icons.event_available_outlined, size: 30),
-          Icon(Icons.history ,size: 30),
+          Icon(Icons.person, size: 30),
+          Icon(Icons.payments, size: 30),
+          Icon(Icons.report_sharp ,size: 30),
         ],
         onTap: (index) {
           setState(() {

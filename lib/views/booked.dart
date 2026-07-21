@@ -10,6 +10,6 @@ class Bookedslots extends StatefulWidget {
 class _BookedslotsState extends State<Bookedslots> {
   @override
   Widget build(BuildContext context) {
-    return Text("Bookedslots");
+    return Text("tenants");
   }
 }
