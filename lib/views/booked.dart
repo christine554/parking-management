@@ -15,19 +15,18 @@ class _TenantsPageState extends State<TenantsPage> {
 
   List<Map<String, dynamic>> filteredTenants = [];
 
-  // ------------------------------------------------------------
+  
   // THEME COLORS
-  // ------------------------------------------------------------
+
 
   static const Color primaryColor = Color(0xFF006978);
   static const Color secondaryColor = Color(0xFF008FA3);
   static const Color lightTeal = Color(0xFFE0F7FA);
   static const Color backgroundColor = Color(0xFFF5F9FA);
 
-  // ------------------------------------------------------------
+  
   // INITIALIZE
-  // ------------------------------------------------------------
-
+ 
   @override
   void initState() {
     super.initState();
@@ -105,7 +104,7 @@ class _TenantsPageState extends State<TenantsPage> {
           ),
           child: Container(
             width: 550,
-            padding: const EdgeInsets.all(30),
+            padding: EdgeInsets.all(30),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -121,16 +120,16 @@ class _TenantsPageState extends State<TenantsPage> {
                           borderRadius:
                               BorderRadius.circular(16),
                         ),
-                        child: const Icon(
+                        child: Icon(
                           Icons.person_add_alt_1_rounded,
                           color: secondaryColor,
                           size: 28,
                         ),
                       ),
 
-                      const SizedBox(width: 15),
+                      SizedBox(width: 15),
 
-                      const Expanded(
+                      Expanded(
                         child: Column(
                           crossAxisAlignment:
                               CrossAxisAlignment.start,
@@ -168,7 +167,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     ],
                   ),
 
-                  const SizedBox(height: 30),
+                  SizedBox(height: 30),
 
                   _inputField(
                     controller: nameController,
@@ -176,7 +175,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     icon: Icons.person_outline_rounded,
                   ),
 
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
 
                   _inputField(
                     controller: phoneController,
@@ -185,7 +184,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     keyboardType: TextInputType.phone,
                   ),
 
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
 
                   _inputField(
                     controller: houseController,
@@ -193,7 +192,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     icon: Icons.home_outlined,
                   ),
 
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
 
                   Row(
                     children: [
@@ -208,7 +207,7 @@ class _TenantsPageState extends State<TenantsPage> {
                         ),
                       ),
 
-                      const SizedBox(width: 15),
+                      SizedBox(width: 15),
 
                       Expanded(
                         child: _inputField(
@@ -223,7 +222,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     ],
                   ),
 
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
 
                   _inputField(
                     controller: dateController,
@@ -233,7 +232,7 @@ class _TenantsPageState extends State<TenantsPage> {
                         Icons.calendar_today_outlined,
                   ),
 
-                  const SizedBox(height: 30),
+                  SizedBox(height: 30),
 
                   Row(
                     mainAxisAlignment:
@@ -251,7 +250,7 @@ class _TenantsPageState extends State<TenantsPage> {
                         ),
                       ),
 
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10),
 
                       ElevatedButton.icon(
                         onPressed: () {
@@ -310,11 +309,11 @@ class _TenantsPageState extends State<TenantsPage> {
                             Navigator.pop(context);
                           }
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.add_rounded,
                         ),
                         label:
-                            const Text('Add Tenant'),
+                            Text('Add Tenant'),
                         style:
                             ElevatedButton.styleFrom(
                           backgroundColor:
@@ -322,7 +321,7 @@ class _TenantsPageState extends State<TenantsPage> {
                           foregroundColor:
                               Colors.white,
                           padding:
-                              const EdgeInsets
+                              EdgeInsets
                                   .symmetric(
                             horizontal: 22,
                             vertical: 15,
@@ -388,7 +387,7 @@ class _TenantsPageState extends State<TenantsPage> {
           ),
           child: Container(
             width: 550,
-            padding: const EdgeInsets.all(30),
+            padding: EdgeInsets.all(30),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment:
@@ -412,9 +411,9 @@ class _TenantsPageState extends State<TenantsPage> {
                         ),
                       ),
 
-                      const SizedBox(width: 15),
+                      SizedBox(width: 15),
 
-                      const Expanded(
+                      Expanded(
                         child: Column(
                           crossAxisAlignment:
                               CrossAxisAlignment.start,
@@ -453,7 +452,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     ],
                   ),
 
-                  const SizedBox(height: 30),
+                  SizedBox(height: 30),
 
                   _inputField(
                     controller: nameController,
@@ -462,7 +461,7 @@ class _TenantsPageState extends State<TenantsPage> {
                         Icons.person_outline_rounded,
                   ),
 
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
 
                   _inputField(
                     controller: phoneController,
@@ -470,7 +469,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     icon: Icons.phone_outlined,
                   ),
 
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
 
                   _inputField(
                     controller: houseController,
@@ -478,7 +477,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     icon: Icons.home_outlined,
                   ),
 
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
 
                   Row(
                     children: [
@@ -493,7 +492,7 @@ class _TenantsPageState extends State<TenantsPage> {
                         ),
                       ),
 
-                      const SizedBox(width: 15),
+                      SizedBox(width: 15),
 
                       Expanded(
                         child: _inputField(
@@ -509,7 +508,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     ],
                   ),
 
-                  const SizedBox(height: 15),
+                  SizedBox(height: 15),
 
                   _inputField(
                     controller: dateController,
@@ -518,7 +517,7 @@ class _TenantsPageState extends State<TenantsPage> {
                         Icons.calendar_today_outlined,
                   ),
 
-                  const SizedBox(height: 30),
+                  SizedBox(height: 30),
 
                   Row(
                     mainAxisAlignment:
@@ -528,7 +527,7 @@ class _TenantsPageState extends State<TenantsPage> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text(
+                        child:Text(
                           'Cancel',
                           style: TextStyle(
                             color: Colors.grey,
@@ -536,7 +535,7 @@ class _TenantsPageState extends State<TenantsPage> {
                         ),
                       ),
 
-                      const SizedBox(width: 10),
+                      SizedBox(width: 10),
 
                       ElevatedButton.icon(
                         onPressed: () {
@@ -581,10 +580,10 @@ class _TenantsPageState extends State<TenantsPage> {
 
                           Navigator.pop(context);
                         },
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.save_rounded,
                         ),
-                        label: const Text(
+                        label: Text(
                           'Save Changes',
                         ),
                         style:
@@ -594,7 +593,7 @@ class _TenantsPageState extends State<TenantsPage> {
                           foregroundColor:
                               Colors.white,
                           padding:
-                              const EdgeInsets
+                              EdgeInsets
                                   .symmetric(
                             horizontal: 22,
                             vertical: 15,
@@ -638,7 +637,7 @@ class _TenantsPageState extends State<TenantsPage> {
             children: [
               Container(
                 padding:
-                    const EdgeInsets.all(10),
+                    EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Colors.red.shade50,
                   shape: BoxShape.circle,
@@ -648,8 +647,8 @@ class _TenantsPageState extends State<TenantsPage> {
                   color: Colors.red.shade600,
                 ),
               ),
-              const SizedBox(width: 12),
-              const Text(
+              SizedBox(width: 12),
+              Text(
                 'Remove Tenant?',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -746,7 +745,7 @@ class _TenantsPageState extends State<TenantsPage> {
           color: secondaryColor,
         ),
         filled: true,
-        fillColor: const Color(0xFFF7FAFB),
+        fillColor:Color(0xFFF7FAFB),
         border: OutlineInputBorder(
           borderRadius:
               BorderRadius.circular(12),
@@ -766,7 +765,7 @@ class _TenantsPageState extends State<TenantsPage> {
             OutlineInputBorder(
           borderRadius:
               BorderRadius.circular(12),
-          borderSide: const BorderSide(
+          borderSide: BorderSide(
             color: secondaryColor,
             width: 2,
           ),
@@ -788,9 +787,9 @@ class _TenantsPageState extends State<TenantsPage> {
 
     return Container(
       margin:
-          const EdgeInsets.only(bottom: 12),
+          EdgeInsets.only(bottom: 12),
       padding:
-          const EdgeInsets.all(18),
+          EdgeInsets.all(18),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius:
@@ -804,7 +803,7 @@ class _TenantsPageState extends State<TenantsPage> {
                 .withOpacity(0.035),
             blurRadius: 10,
             offset:
-                const Offset(0, 4),
+                Offset(0, 4),
           ),
         ],
       ),
@@ -822,7 +821,7 @@ class _TenantsPageState extends State<TenantsPage> {
               child: Text(
                 tenant['name'][0]
                     .toUpperCase(),
-                style: const TextStyle(
+                style: TextStyle(
                   color: primaryColor,
                   fontSize: 20,
                   fontWeight:
@@ -832,7 +831,7 @@ class _TenantsPageState extends State<TenantsPage> {
             ),
           ),
 
-          const SizedBox(width: 15),
+          SizedBox(width: 15),
 
           // Tenant
           Expanded(
@@ -843,7 +842,7 @@ class _TenantsPageState extends State<TenantsPage> {
               children: [
                 Text(
                   tenant['name'],
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontWeight:
                         FontWeight.bold,
                     fontSize: 16,
@@ -852,7 +851,7 @@ class _TenantsPageState extends State<TenantsPage> {
                   ),
                 ),
 
-                const SizedBox(height: 6),
+                SizedBox(height: 6),
 
                 Row(
                   children: [
@@ -862,7 +861,7 @@ class _TenantsPageState extends State<TenantsPage> {
                       color:
                           Colors.grey.shade500,
                     ),
-                    const SizedBox(
+                    SizedBox(
                         width: 5),
                     Text(
                       tenant['phone'],
@@ -909,7 +908,7 @@ class _TenantsPageState extends State<TenantsPage> {
                   Alignment.centerLeft,
               child: Container(
                 padding:
-                    const EdgeInsets
+                    EdgeInsets
                         .symmetric(
                   horizontal: 12,
                   vertical: 7,
@@ -939,7 +938,7 @@ class _TenantsPageState extends State<TenantsPage> {
                           ? Colors.green.shade700
                           : Colors.red.shade700,
                     ),
-                    const SizedBox(width: 5),
+                    SizedBox(width: 5),
                     Text(
                       tenant['status'],
                       style: TextStyle(
@@ -971,7 +970,7 @@ class _TenantsPageState extends State<TenantsPage> {
                   backgroundColor:
                       lightTeal,
                 ),
-                icon: const Icon(
+                icon: Icon(
                   Icons.edit_outlined,
                   color:
                       secondaryColor,
@@ -979,7 +978,7 @@ class _TenantsPageState extends State<TenantsPage> {
                 ),
               ),
 
-              const SizedBox(width: 5),
+              SizedBox(width: 5),
 
               IconButton(
                 tooltip:
@@ -1027,7 +1026,7 @@ class _TenantsPageState extends State<TenantsPage> {
               color:
                   Colors.grey.shade500,
             ),
-            const SizedBox(width: 5),
+            SizedBox(width: 5),
             Text(
               title,
               style: TextStyle(
@@ -1039,11 +1038,11 @@ class _TenantsPageState extends State<TenantsPage> {
           ],
         ),
 
-        const SizedBox(height: 6),
+        SizedBox(height: 6),
 
         Text(
           value,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 13,
             fontWeight:
                 FontWeight.w600,
@@ -1068,7 +1067,7 @@ class _TenantsPageState extends State<TenantsPage> {
     return Expanded(
       child: Container(
         padding:
-            const EdgeInsets.all(20),
+            EdgeInsets.all(20),
         decoration:
             BoxDecoration(
           color: Colors.white,
@@ -1084,7 +1083,7 @@ class _TenantsPageState extends State<TenantsPage> {
                   .withOpacity(0.035),
               blurRadius: 10,
               offset:
-                  const Offset(0, 4),
+                  Offset(0, 4),
             ),
           ],
         ),
@@ -1109,7 +1108,7 @@ class _TenantsPageState extends State<TenantsPage> {
               ),
             ),
 
-            const SizedBox(width: 14),
+            SizedBox(width: 14),
 
             Expanded(
               child: Column(
@@ -1125,12 +1124,12 @@ class _TenantsPageState extends State<TenantsPage> {
                     ),
                   ),
 
-                  const SizedBox(height: 5),
+                  SizedBox(height: 5),
 
                   Text(
                     value,
                     style:
-                        const TextStyle(
+                        TextStyle(
                       fontSize: 20,
                       fontWeight:
                           FontWeight.bold,
@@ -1202,16 +1201,15 @@ class _TenantsPageState extends State<TenantsPage> {
       body: SafeArea(
         child: Padding(
           padding:
-              const EdgeInsets.all(30),
+              EdgeInsets.all(30),
 
           child: Column(
             crossAxisAlignment:
                 CrossAxisAlignment.start,
             children: [
-              // ------------------------------------------------
+              
               // HEADER
-              // ------------------------------------------------
-
+              
               Row(
                 mainAxisAlignment:
                     MainAxisAlignment
@@ -1238,19 +1236,18 @@ class _TenantsPageState extends State<TenantsPage> {
                               ),
                             ),
                             child:
-                                const Icon(
-                              Icons
-                                  .people_alt_rounded,
+                                 Icon(
+                              Icons.people_alt_rounded,
                               color:
                                   secondaryColor,
                               size: 25,
                             ),
                           ),
 
-                          const SizedBox(
+                          SizedBox(
                               width: 15),
 
-                          const Text(
+                          Text(
                             'Tenant Management',
                             style:
                                 TextStyle(
@@ -1266,7 +1263,7 @@ class _TenantsPageState extends State<TenantsPage> {
                         ],
                       ),
 
-                      const SizedBox(
+                      SizedBox(
                           height: 10),
 
                       Text(
@@ -1283,11 +1280,11 @@ class _TenantsPageState extends State<TenantsPage> {
                   ElevatedButton.icon(
                     onPressed:
                         addTenant,
-                    icon: const Icon(
+                    icon: Icon(
                       Icons
                           .person_add_alt_1_rounded,
                     ),
-                    label: const Text(
+                    label: Text(
                       'Add Tenant',
                     ),
                     style:
@@ -1297,7 +1294,7 @@ class _TenantsPageState extends State<TenantsPage> {
                       foregroundColor:
                           Colors.white,
                       padding:
-                          const EdgeInsets
+                          EdgeInsets
                               .symmetric(
                         horizontal: 22,
                         vertical: 16,
@@ -1316,7 +1313,7 @@ class _TenantsPageState extends State<TenantsPage> {
                 ],
               ),
 
-              const SizedBox(height: 28),
+              SizedBox(height: 28),
 
               // ------------------------------------------------
               // SUMMARY CARDS
@@ -1332,7 +1329,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     secondaryColor,
                   ),
 
-                  const SizedBox(
+                  SizedBox(
                       width: 15),
 
                   _summaryCard(
@@ -1344,7 +1341,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     Colors.green,
                   ),
 
-                  const SizedBox(
+                  SizedBox(
                       width: 15),
 
                   _summaryCard(
@@ -1356,7 +1353,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     Colors.orange,
                   ),
 
-                  const SizedBox(
+                  SizedBox(
                       width: 15),
 
                   _summaryCard(
@@ -1369,7 +1366,7 @@ class _TenantsPageState extends State<TenantsPage> {
                 ],
               ),
 
-              const SizedBox(height: 25),
+              SizedBox(height: 25),
 
               // ------------------------------------------------
               // SEARCH
@@ -1395,7 +1392,7 @@ class _TenantsPageState extends State<TenantsPage> {
                               0.025),
                       blurRadius: 8,
                       offset:
-                          const Offset(
+                          Offset(
                               0, 3),
                     ),
                   ],
@@ -1416,7 +1413,7 @@ class _TenantsPageState extends State<TenantsPage> {
                       fontSize: 14,
                     ),
                     prefixIcon:
-                        const Icon(
+                        Icon(
                       Icons.search_rounded,
                       color:
                           secondaryColor,
@@ -1427,7 +1424,7 @@ class _TenantsPageState extends State<TenantsPage> {
                                 .isNotEmpty
                             ? IconButton(
                                 icon:
-                                    const Icon(
+                                    Icon(
                                   Icons
                                       .clear_rounded,
                                 ),
@@ -1447,7 +1444,7 @@ class _TenantsPageState extends State<TenantsPage> {
                     border:
                         InputBorder.none,
                     contentPadding:
-                        const EdgeInsets
+                        EdgeInsets
                             .symmetric(
                       vertical: 18,
                     ),
@@ -1455,7 +1452,7 @@ class _TenantsPageState extends State<TenantsPage> {
                 ),
               ),
 
-              const SizedBox(height: 25),
+              SizedBox(height: 25),
 
               // ------------------------------------------------
               // TABLE HEADER
@@ -1463,7 +1460,7 @@ class _TenantsPageState extends State<TenantsPage> {
 
               Container(
                 padding:
-                    const EdgeInsets
+                    EdgeInsets
                         .symmetric(
                   horizontal: 20,
                   vertical: 16,
@@ -1484,7 +1481,7 @@ class _TenantsPageState extends State<TenantsPage> {
                 ),
                 child: Row(
                   children: [
-                    const Expanded(
+                    Expanded(
                       flex: 2,
                       child: Text(
                         'TENANT',
@@ -1502,7 +1499,7 @@ class _TenantsPageState extends State<TenantsPage> {
                       ),
                     ),
 
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'HOUSE',
                         style:
@@ -1519,7 +1516,7 @@ class _TenantsPageState extends State<TenantsPage> {
                       ),
                     ),
 
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'RENT',
                         style:
@@ -1536,7 +1533,7 @@ class _TenantsPageState extends State<TenantsPage> {
                       ),
                     ),
 
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'MOVE-IN DATE',
                         style:
@@ -1553,7 +1550,7 @@ class _TenantsPageState extends State<TenantsPage> {
                       ),
                     ),
 
-                    const Expanded(
+                    Expanded(
                       child: Text(
                         'STATUS',
                         style:
@@ -1570,7 +1567,7 @@ class _TenantsPageState extends State<TenantsPage> {
                       ),
                     ),
 
-                    const SizedBox(
+                    SizedBox(
                       width: 100,
                       child: Text(
                         'ACTIONS',
@@ -1591,12 +1588,11 @@ class _TenantsPageState extends State<TenantsPage> {
                 ),
               ),
 
-              const SizedBox(height: 10),
+              SizedBox(height: 10),
 
-              // ------------------------------------------------
+              
               // TENANT LIST
-              // ------------------------------------------------
-
+             
               Expanded(
                 child:
                     filteredTenants
@@ -1620,7 +1616,7 @@ class _TenantsPageState extends State<TenantsPage> {
                                             .circle,
                                   ),
                                   child:
-                                      const Icon(
+                                      Icon(
                                     Icons
                                         .people_outline_rounded,
                                     size: 45,
@@ -1629,11 +1625,11 @@ class _TenantsPageState extends State<TenantsPage> {
                                   ),
                                 ),
 
-                                const SizedBox(
+                                SizedBox(
                                     height:
                                         18),
 
-                                const Text(
+                                Text(
                                   'No tenants found',
                                   style:
                                       TextStyle(
@@ -1648,7 +1644,7 @@ class _TenantsPageState extends State<TenantsPage> {
                                   ),
                                 ),
 
-                                const SizedBox(
+                                SizedBox(
                                     height:
                                         6),
 

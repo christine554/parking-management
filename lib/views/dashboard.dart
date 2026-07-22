@@ -12,7 +12,7 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    // Get the same tenant data used by the Tenants Page
+    
     final tenantData = Provider.of<TenantData>(context);
 
     // Get all tenants
@@ -68,18 +68,18 @@ class _DashboardState extends State<Dashboard> {
         );
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F9FA),
+      backgroundColor: Color(0xFFF5F9FA),
 
       // ------------------------------------------------------------
       // APP BAR
       // ------------------------------------------------------------
 
       appBar: AppBar(
-        backgroundColor: const Color(0xFF006978),
+        backgroundColor: Color(0xFF006978),
         foregroundColor: Colors.white,
         elevation: 0,
 
-        title: const Row(
+        title: Row(
           children: [
             Icon(
               Icons.home_work_rounded,
@@ -101,22 +101,22 @@ class _DashboardState extends State<Dashboard> {
         actions: [
           IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.notifications_none_rounded,
             ),
           ),
 
-          const SizedBox(width: 8),
+          SizedBox(width: 8),
 
           Padding(
-            padding: const EdgeInsets.only(
+            padding: EdgeInsets.only(
               right: 15,
             ),
 
             child: CircleAvatar(
               backgroundColor: Colors.white,
 
-              child: const Icon(
+              child: Icon(
                 Icons.person,
                 color: Color(0xFF006978),
               ),
@@ -130,11 +130,11 @@ class _DashboardState extends State<Dashboard> {
       // ------------------------------------------------------------
 
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
+        padding: EdgeInsets.all(24),
 
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
+            constraints: BoxConstraints(
               maxWidth: 1200,
             ),
 
@@ -150,10 +150,10 @@ class _DashboardState extends State<Dashboard> {
                 Container(
                   width: double.infinity,
 
-                  padding: const EdgeInsets.all(25),
+                  padding: EdgeInsets.all(25),
 
                   decoration: BoxDecoration(
-                    gradient: const LinearGradient(
+                    gradient: LinearGradient(
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
 
@@ -168,13 +168,12 @@ class _DashboardState extends State<Dashboard> {
 
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black
-                            .withOpacity(0.1),
+                        color: Colors.black,
 
                         blurRadius: 15,
 
                         offset:
-                            const Offset(0, 6),
+                            Offset(0, 6),
                       ),
                     ],
                   ),
@@ -188,24 +187,23 @@ class _DashboardState extends State<Dashboard> {
 
                         decoration:
                             BoxDecoration(
-                          color: Colors.white
-                              .withOpacity(0.2),
+                          color: Colors.white,
 
                           shape:
                               BoxShape.circle,
                         ),
 
-                        child: const Icon(
+                        child: Icon(
                           Icons.home_rounded,
                           color: Colors.white,
                           size: 35,
                         ),
                       ),
 
-                      const SizedBox(width: 20),
+                      SizedBox(width: 20),
 
                       // Welcome Text
-                      const Expanded(
+                      Expanded(
                         child: Column(
                           crossAxisAlignment:
                               CrossAxisAlignment
@@ -230,7 +228,7 @@ class _DashboardState extends State<Dashboard> {
                             SizedBox(height: 6),
 
                             Text(
-                              "Manage your rental properties efficiently.",
+                              "Making rental property easier to manage.",
 
                               style:
                                   TextStyle(
@@ -247,13 +245,10 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
 
-                const SizedBox(height: 30),
+                SizedBox(height: 30),
 
-                // ------------------------------------------------
-                // DASHBOARD SUMMARY TITLE
-                // ------------------------------------------------
-
-                const Text(
+                
+                Text(
                   "Property Overview",
 
                   style: TextStyle(
@@ -267,12 +262,11 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
 
-                const SizedBox(height: 15),
+                SizedBox(height: 15),
 
-                // ------------------------------------------------
+                
                 // SUMMARY CARDS
-                // ------------------------------------------------
-
+               
                 LayoutBuilder(
                   builder:
                       (context, constraints) {
@@ -291,13 +285,13 @@ class _DashboardState extends State<Dashboard> {
                               Icons
                                   .people_alt_rounded,
 
-                              const Color(
+                              Color(
                                 0xFF008FA3,
                               ),
                             ),
                           ),
 
-                          const SizedBox(
+                          SizedBox(
                             width: 15,
                           ),
 
@@ -312,13 +306,13 @@ class _DashboardState extends State<Dashboard> {
                               Icons
                                   .person_outline_rounded,
 
-                              const Color(
+                              Color(
                                 0xFF00796B,
                               ),
                             ),
                           ),
 
-                          const SizedBox(
+                          SizedBox(
                             width: 15,
                           ),
 
@@ -332,13 +326,13 @@ class _DashboardState extends State<Dashboard> {
                               Icons
                                   .payments_rounded,
 
-                              const Color(
+                              Color(
                                 0xFF2E7D32,
                               ),
                             ),
                           ),
 
-                          const SizedBox(
+                          SizedBox(
                             width: 15,
                           ),
 
@@ -352,7 +346,7 @@ class _DashboardState extends State<Dashboard> {
                               Icons
                                   .warning_amber_rounded,
 
-                              const Color(
+                              Color(
                                 0xFFD32F2F,
                               ),
                             ),
@@ -376,13 +370,13 @@ class _DashboardState extends State<Dashboard> {
                                 Icons
                                     .people_alt_rounded,
 
-                                const Color(
+                                Color(
                                   0xFF008FA3,
                                 ),
                               ),
                             ),
 
-                            const SizedBox(
+                            SizedBox(
                               width: 15,
                             ),
 
@@ -397,7 +391,7 @@ class _DashboardState extends State<Dashboard> {
                                 Icons
                                     .person_outline_rounded,
 
-                                const Color(
+                                Color(
                                   0xFF00796B,
                                 ),
                               ),
@@ -405,7 +399,7 @@ class _DashboardState extends State<Dashboard> {
                           ],
                         ),
 
-                        const SizedBox(
+                        SizedBox(
                           height: 15,
                         ),
 
@@ -421,13 +415,13 @@ class _DashboardState extends State<Dashboard> {
                                 Icons
                                     .payments_rounded,
 
-                                const Color(
+                                Color(
                                   0xFF2E7D32,
                                 ),
                               ),
                             ),
 
-                            const SizedBox(
+                            SizedBox(
                               width: 15,
                             ),
 
@@ -441,7 +435,7 @@ class _DashboardState extends State<Dashboard> {
                                 Icons
                                     .warning_amber_rounded,
 
-                                const Color(
+                                Color(
                                   0xFFD32F2F,
                                 ),
                               ),
@@ -453,12 +447,11 @@ class _DashboardState extends State<Dashboard> {
                   },
                 ),
 
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
 
-                // ------------------------------------------------
+                
                 // TOTAL MONTHLY RENT
-                // ------------------------------------------------
-
+                
                 SizedBox(
                   width: double.infinity,
 
@@ -470,15 +463,15 @@ class _DashboardState extends State<Dashboard> {
                     Icons
                         .account_balance_wallet_rounded,
 
-                    const Color(0xFFE67E22),
+                    Color(0xFFE67E22),
                   ),
                 ),
 
-                const SizedBox(height: 35),
+                SizedBox(height: 35),
 
-                // ------------------------------------------------
+                
                 // RECENT PAYMENTS
-                // ------------------------------------------------
+             
 
                 Row(
                   mainAxisAlignment:
@@ -486,7 +479,7 @@ class _DashboardState extends State<Dashboard> {
                           .spaceBetween,
 
                   children: [
-                    const Text(
+                    Text(
                       "Recent Payments",
 
                       style: TextStyle(
@@ -504,7 +497,7 @@ class _DashboardState extends State<Dashboard> {
                       "${tenants.length} Tenants",
 
                       style:
-                          const TextStyle(
+                          TextStyle(
                         color:
                             Color(0xFF008FA3),
 
@@ -515,18 +508,17 @@ class _DashboardState extends State<Dashboard> {
                   ],
                 ),
 
-                const SizedBox(height: 15),
+                SizedBox(height: 15),
 
-                // ------------------------------------------------
+               
                 // TENANT PAYMENT INFORMATION
-                // ------------------------------------------------
-
+               
                 if (tenants.isEmpty)
                   Container(
                     width: double.infinity,
 
                     padding:
-                        const EdgeInsets.all(
+                        EdgeInsets.all(
                       35,
                     ),
 
@@ -539,7 +531,7 @@ class _DashboardState extends State<Dashboard> {
                               .circular(18),
                     ),
 
-                    child: const Column(
+                    child: Column(
                       children: [
                         Icon(
                           Icons
@@ -594,10 +586,9 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  // ------------------------------------------------------------
+  
   // DASHBOARD CARD
-  // ------------------------------------------------------------
-
+  
   Widget dashboardCard(
     String title,
     String value,
@@ -606,7 +597,7 @@ class _DashboardState extends State<Dashboard> {
   ) {
     return Container(
       padding:
-          const EdgeInsets.all(20),
+        EdgeInsets.all(20),
 
       decoration:
           BoxDecoration(
@@ -622,13 +613,12 @@ class _DashboardState extends State<Dashboard> {
 
         boxShadow: [
           BoxShadow(
-            color: Colors.black
-                .withOpacity(0.05),
+            color: Colors.black,
 
             blurRadius: 12,
 
             offset:
-                const Offset(0, 5),
+                Offset(0, 5),
           ),
         ],
       ),
@@ -660,7 +650,7 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
 
-          const SizedBox(width: 15),
+          SizedBox(width: 15),
 
           // Card Information
           Expanded(
@@ -673,7 +663,7 @@ class _DashboardState extends State<Dashboard> {
                   title,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         Colors.grey,
 
@@ -681,13 +671,13 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
 
-                const SizedBox(height: 5),
+                SizedBox(height: 5),
 
                 Text(
                   value,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     fontSize: 21,
 
                     fontWeight:
@@ -717,12 +707,12 @@ class _DashboardState extends State<Dashboard> {
   ) {
     return Container(
       margin:
-          const EdgeInsets.only(
+          EdgeInsets.only(
         bottom: 12,
       ),
 
       padding:
-          const EdgeInsets.all(15),
+          EdgeInsets.all(15),
 
       decoration:
           BoxDecoration(
@@ -759,7 +749,7 @@ class _DashboardState extends State<Dashboard> {
             decoration:
                 BoxDecoration(
               color:
-                  const Color(0xFFE0F7FA),
+                  Color(0xFFE0F7FA),
 
               shape:
                   BoxShape.circle,
@@ -775,7 +765,7 @@ class _DashboardState extends State<Dashboard> {
             ),
           ),
 
-          const SizedBox(width: 15),
+          SizedBox(width: 15),
 
           // Tenant Details
           Expanded(
@@ -802,7 +792,7 @@ class _DashboardState extends State<Dashboard> {
                   house,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         Colors.grey,
 
@@ -810,13 +800,13 @@ class _DashboardState extends State<Dashboard> {
                   ),
                 ),
 
-                const SizedBox(height: 3),
+                SizedBox(height: 3),
 
                 Text(
                   amount,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     color:
                         Color(0xFF008FA3),
 
@@ -833,7 +823,7 @@ class _DashboardState extends State<Dashboard> {
           // Payment Status
           Container(
             padding:
-                const EdgeInsets.symmetric(
+                EdgeInsets.symmetric(
               horizontal: 12,
               vertical: 7,
             ),
@@ -869,7 +859,7 @@ class _DashboardState extends State<Dashboard> {
                       : Colors.red,
                 ),
 
-                const SizedBox(width: 5),
+                SizedBox(width: 5),
 
                 Text(
                   paid

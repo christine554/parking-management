@@ -598,9 +598,9 @@ class _MaintenanceReportsState
     );
   }
 
-  // ============================================================
+  
   // REPAIR CARD
-  // ============================================================
+ 
 
   Widget _repairCard(
     Map<String, dynamic> repair,
@@ -608,10 +608,10 @@ class _MaintenanceReportsState
   ) {
     return Container(
       margin:
-          const EdgeInsets.only(bottom: 12),
+          EdgeInsets.only(bottom: 12),
 
       padding:
-          const EdgeInsets.all(18),
+          EdgeInsets.all(18),
 
       decoration: BoxDecoration(
         color: Colors.white,
@@ -629,7 +629,7 @@ class _MaintenanceReportsState
                 .withOpacity(0.025),
             blurRadius: 8,
             offset:
-                const Offset(0, 3),
+                Offset(0, 3),
           ),
         ],
       ),
@@ -639,7 +639,7 @@ class _MaintenanceReportsState
           // Repair Icon
           Container(
             padding:
-                const EdgeInsets.all(14),
+                EdgeInsets.all(14),
 
             decoration:
                 BoxDecoration(
@@ -660,7 +660,7 @@ class _MaintenanceReportsState
             ),
           ),
 
-          const SizedBox(width: 18),
+          SizedBox(width: 18),
 
           // Repair Information
           Expanded(
@@ -673,14 +673,14 @@ class _MaintenanceReportsState
                   "House ${repair["house"]}",
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     fontSize: 16,
                     fontWeight:
                         FontWeight.bold,
                   ),
                 ),
 
-                const SizedBox(
+                SizedBox(
                   height: 6,
                 ),
 
@@ -694,7 +694,7 @@ class _MaintenanceReportsState
                   ),
                 ),
 
-                const SizedBox(
+                SizedBox(
                   height: 5,
                 ),
 
@@ -751,7 +751,7 @@ class _MaintenanceReportsState
                       : Colors.orange.shade700,
                 ),
 
-                const SizedBox(
+                SizedBox(
                   width: 6,
                 ),
 
@@ -781,10 +781,8 @@ class _MaintenanceReportsState
     );
   }
 
-  // ============================================================
   // REPORT CARD
-  // ============================================================
-
+  
   Widget _reportCard({
     required String title,
     required String amount,
@@ -793,7 +791,7 @@ class _MaintenanceReportsState
   }) {
     return Container(
       padding:
-          const EdgeInsets.all(20),
+          EdgeInsets.all(20),
 
       decoration: BoxDecoration(
         color: Colors.white,
@@ -810,8 +808,7 @@ class _MaintenanceReportsState
             color: Colors.black
                 .withOpacity(0.025),
             blurRadius: 8,
-            offset:
-                const Offset(0, 3),
+            offset:Offset(0, 3),
           ),
         ],
       ),
@@ -820,7 +817,7 @@ class _MaintenanceReportsState
         children: [
           Container(
             padding:
-                const EdgeInsets.all(12),
+                EdgeInsets.all(12),
 
             decoration:
                 BoxDecoration(
@@ -840,7 +837,7 @@ class _MaintenanceReportsState
             ),
           ),
 
-          const SizedBox(width: 15),
+          SizedBox(width: 15),
 
           Expanded(
             child: Column(
@@ -863,7 +860,7 @@ class _MaintenanceReportsState
                   ),
                 ),
 
-                const SizedBox(
+                SizedBox(
                   height: 6,
                 ),
 
@@ -871,7 +868,7 @@ class _MaintenanceReportsState
                   amount,
 
                   style:
-                      const TextStyle(
+                      TextStyle(
                     fontSize: 20,
                     fontWeight:
                         FontWeight.bold,
@@ -941,9 +938,9 @@ class _MaintenanceReportsState
     );
   }
 
-  // ============================================================
+  
   // ADD REPAIR DIALOG
-  // ============================================================
+  
 
   void _showAddRepairDialog() {
     final houseController =
@@ -972,7 +969,7 @@ class _MaintenanceReportsState
             width: 500,
 
             padding:
-                const EdgeInsets.all(30),
+                EdgeInsets.all(30),
 
             child:
                 SingleChildScrollView(
@@ -986,7 +983,7 @@ class _MaintenanceReportsState
                     children: [
                       Container(
                         padding:
-                            const EdgeInsets
+                            EdgeInsets
                                 .all(12),
 
                         decoration:
@@ -1014,11 +1011,11 @@ class _MaintenanceReportsState
                         ),
                       ),
 
-                      const SizedBox(
+                      SizedBox(
                         width: 15,
                       ),
 
-                      const Column(
+                      Column(
                         crossAxisAlignment:
                             CrossAxisAlignment
                                 .start,
@@ -1055,7 +1052,7 @@ class _MaintenanceReportsState
                     ],
                   ),
 
-                  const SizedBox(
+                  SizedBox(
                     height: 30,
                   ),
 
@@ -1073,7 +1070,7 @@ class _MaintenanceReportsState
                           "e.g. A3",
 
                       prefixIcon:
-                          const Icon(
+                          Icon(
                         Icons
                             .home_outlined,
                       ),
@@ -1095,7 +1092,7 @@ class _MaintenanceReportsState
                     ),
                   ),
 
-                  const SizedBox(
+                  SizedBox(
                     height: 15,
                   ),
 
@@ -1113,7 +1110,7 @@ class _MaintenanceReportsState
                           "e.g. Plumbing",
 
                       prefixIcon:
-                          const Icon(
+                          Icon(
                         Icons
                             .build_outlined,
                       ),
@@ -1141,26 +1138,20 @@ class _MaintenanceReportsState
 
                   // Cost
                   TextField(
-                    controller:
-                        costController,
+                    controller:costController,
 
                     keyboardType:
-                        TextInputType
-                            .number,
+                        TextInputType.number,
 
                     decoration:
                         InputDecoration(
-                      labelText:
-                          "Cost",
+                      labelText:"Cost",
 
-                      hintText:
-                          "e.g. 3500",
+                      hintText:"e.g. 3500",
 
                       prefixIcon:
-                          const Icon(
-                        Icons
-                            .payments_outlined,
-                      ),
+                          Icon(
+                        Icons.payments_outlined,),
 
                       filled: true,
 
@@ -1179,15 +1170,14 @@ class _MaintenanceReportsState
                     ),
                   ),
 
-                  const SizedBox(
+                  SizedBox(
                     height: 30,
                   ),
 
                   // Buttons
                   Row(
                     mainAxisAlignment:
-                        MainAxisAlignment
-                            .end,
+                        MainAxisAlignment.end,
 
                     children: [
                       TextButton(
@@ -1198,12 +1188,10 @@ class _MaintenanceReportsState
                         },
 
                         child:
-                            const Text(
-                          "Cancel",
-                        ),
+                            Text("Cancel",),
                       ),
 
-                      const SizedBox(
+                      SizedBox(
                         width: 10,
                       ),
 
@@ -1246,12 +1234,12 @@ class _MaintenanceReportsState
                           }
                         },
 
-                        icon: const Icon(
+                        icon: Icon(
                           Icons.add,
                         ),
 
                         label:
-                            const Text(
+                            Text(
                           "Add Repair",
                         ),
 
@@ -1267,7 +1255,7 @@ class _MaintenanceReportsState
                               Colors.white,
 
                           padding:
-                              const EdgeInsets
+                              EdgeInsets
                                   .symmetric(
                             horizontal: 20,
                             vertical: 14,

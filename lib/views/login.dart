@@ -30,11 +30,36 @@ class _loginscreenState extends State<loginscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ------------------------------------------------------------
+      // APP BAR
+      // ------------------------------------------------------------
+      appBar: AppBar(
+        title: const Text("Property Manager"),
+        backgroundColor: const Color(0xFF008FA3),
+        foregroundColor: Colors.white,
+        centerTitle: true,
+
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.settings),
+          ),
+
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.logout),
+          ),
+        ],
+      ),
+
+      // ------------------------------------------------------------
+      // BODY
+      // ------------------------------------------------------------
       body: Container(
         width: double.infinity,
         height: double.infinity,
 
-        // Background
+        // Background gradient
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -50,7 +75,7 @@ class _loginscreenState extends State<loginscreen> {
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(25),
+              padding: const EdgeInsets.all(20),
 
               child: ConstrainedBox(
                 constraints: const BoxConstraints(
@@ -58,47 +83,11 @@ class _loginscreenState extends State<loginscreen> {
                 ),
 
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // App Logo
-                    Container(
-                      width: 80,
-                      height: 80,
 
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            blurRadius: 15,
-                            offset: const Offset(0, 5),
-                          ),
-                        ],
-                      ),
-
-                      child: const Icon(
-                        Icons.home_work_rounded,
-                        size: 45,
-                        color: Color(0xFF008FA3),
-                      ),
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    // App Name
-                    const Text(
-                      "Property Manager",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-
-                    const SizedBox(height: 8),
-
+                    
+                    // App Description
                     const Text(
                       "Rental Management System",
                       style: TextStyle(
@@ -108,7 +97,7 @@ class _loginscreenState extends State<loginscreen> {
                       ),
                     ),
 
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 5),
 
                     const Text(
                       "Manage your properties, tenants and rent with ease.",
@@ -119,9 +108,12 @@ class _loginscreenState extends State<loginscreen> {
                       textAlign: TextAlign.center,
                     ),
 
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 25),
 
-                    // Login Card
+                    // ------------------------------------------------
+                    // LOGIN CARD
+                    // ------------------------------------------------
+
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(25),
@@ -141,26 +133,44 @@ class _loginscreenState extends State<loginscreen> {
 
                       child: Column(
                         children: [
-                          // Login Icon
-                          Container(
-                            width: 90,
-                            height: 90,
 
-                            decoration: const BoxDecoration(
-                              color: Color(0xFFE0F7FA),
-                              shape: BoxShape.circle,
-                            ),
+                          // ------------------------------------------------
+                          // PROPERTY IMAGE
+                          // ------------------------------------------------
 
-                            child: const Icon(
-                              Icons.person_rounded,
-                              size: 50,
-                              color: Color(0xFF008FA3),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+
+                            child: Image.asset(
+                              "assets/property.jpg",
+                              width: double.infinity,
+                              height: 180,
+                              fit: BoxFit.cover,
+
+                              // Display a fallback icon if image has an issue
+                              errorBuilder:
+                                  (context, error, stackTrace) {
+                                return Container(
+                                  width: double.infinity,
+                                  height: 180,
+                                  color: const Color(0xFFE0F7FA),
+
+                                  child: const Icon(
+                                    Icons.home_work_rounded,
+                                    size: 70,
+                                    color: Color(0xFF008FA3),
+                                  ),
+                                );
+                              },
                             ),
                           ),
 
                           const SizedBox(height: 20),
 
-                          // Welcome Text
+                          // ------------------------------------------------
+                          // WELCOME TEXT
+                          // ------------------------------------------------
+
                           const Text(
                             "Welcome Back",
                             style: TextStyle(
@@ -181,11 +191,15 @@ class _loginscreenState extends State<loginscreen> {
                             textAlign: TextAlign.center,
                           ),
 
-                          const SizedBox(height: 30),
+                          const SizedBox(height: 25),
 
-                          // Username Label
+                          // ------------------------------------------------
+                          // USERNAME LABEL
+                          // ------------------------------------------------
+
                           const Align(
                             alignment: Alignment.centerLeft,
+
                             child: Text(
                               "Username",
                               style: TextStyle(
@@ -198,7 +212,10 @@ class _loginscreenState extends State<loginscreen> {
 
                           const SizedBox(height: 8),
 
-                          // Username
+                          // ------------------------------------------------
+                          // USERNAME FIELD
+                          // ------------------------------------------------
+
                           TextField(
                             controller: usernameController,
 
@@ -228,6 +245,7 @@ class _loginscreenState extends State<loginscreen> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.circular(15),
+
                                 borderSide: const BorderSide(
                                   color: Color(0xFF008FA3),
                                   width: 2,
@@ -238,9 +256,13 @@ class _loginscreenState extends State<loginscreen> {
 
                           const SizedBox(height: 20),
 
-                          // Password Label
+                          // ------------------------------------------------
+                          // PASSWORD LABEL
+                          // ------------------------------------------------
+
                           const Align(
                             alignment: Alignment.centerLeft,
+
                             child: Text(
                               "Password",
                               style: TextStyle(
@@ -253,9 +275,13 @@ class _loginscreenState extends State<loginscreen> {
 
                           const SizedBox(height: 8),
 
-                          // Password
+                          // ------------------------------------------------
+                          // PASSWORD FIELD
+                          // ------------------------------------------------
+
                           TextField(
                             controller: passwordController,
+
                             obscureText: _obscurePassword,
 
                             decoration: InputDecoration(
@@ -266,11 +292,13 @@ class _loginscreenState extends State<loginscreen> {
                                 color: Color(0xFF008FA3),
                               ),
 
+                              // Password visibility button
                               suffixIcon: IconButton(
                                 icon: Icon(
                                   _obscurePassword
                                       ? Icons.visibility_off_outlined
                                       : Icons.visibility_outlined,
+
                                   color: Colors.grey,
                                 ),
 
@@ -300,6 +328,7 @@ class _loginscreenState extends State<loginscreen> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.circular(15),
+
                                 borderSide: const BorderSide(
                                   color: Color(0xFF008FA3),
                                   width: 2,
@@ -308,9 +337,12 @@ class _loginscreenState extends State<loginscreen> {
                             ),
                           ),
 
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 10),
 
-                          // Forgot Password
+                          // ------------------------------------------------
+                          // FORGOT PASSWORD
+                          // ------------------------------------------------
+
                           Align(
                             alignment: Alignment.centerRight,
 
@@ -329,16 +361,20 @@ class _loginscreenState extends State<loginscreen> {
                             ),
                           ),
 
-                          const SizedBox(height: 15),
+                          const SizedBox(height: 10),
 
-                          // Login Button
+                          // ------------------------------------------------
+                          // LOGIN BUTTON
+                          // ------------------------------------------------
+
                           SizedBox(
                             width: double.infinity,
                             height: 55,
 
                             child: ElevatedButton(
                               onPressed: () {
-                                // Go to landlord dashboard
+
+                                // Navigate to landlord dashboard
                                 Get.toNamed("/home");
                               },
 
@@ -361,6 +397,7 @@ class _loginscreenState extends State<loginscreen> {
                                     MainAxisAlignment.center,
 
                                 children: [
+
                                   Icon(
                                     Icons.login,
                                     size: 20,
@@ -381,14 +418,18 @@ class _loginscreenState extends State<loginscreen> {
                             ),
                           ),
 
-                          const SizedBox(height: 25),
+                          const SizedBox(height: 20),
 
-                          // Create Account
+                          // ------------------------------------------------
+                          // CREATE ACCOUNT
+                          // ------------------------------------------------
+
                           Row(
                             mainAxisAlignment:
                                 MainAxisAlignment.center,
 
                             children: [
+
                               const Text(
                                 "Don't have an account? ",
                                 style: TextStyle(
@@ -398,6 +439,8 @@ class _loginscreenState extends State<loginscreen> {
 
                               GestureDetector(
                                 onTap: () {
+
+                                  // Navigate to Sign Up
                                   Get.toNamed("/signup");
                                 },
 
@@ -415,11 +458,14 @@ class _loginscreenState extends State<loginscreen> {
                       ),
                     ),
 
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 20),
 
-                    // Footer
+                    // ------------------------------------------------
+                    // FOOTER
+                    // ------------------------------------------------
+
                     const Text(
-                      "© 2026 Property Manager",
+                      "2026 Property Manager",
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 13,
@@ -434,6 +480,7 @@ class _loginscreenState extends State<loginscreen> {
                         color: Colors.white60,
                         fontSize: 12,
                       ),
+                      textAlign: TextAlign.center,
                     ),
                   ],
                 ),

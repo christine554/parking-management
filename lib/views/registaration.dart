@@ -22,7 +22,7 @@ class _SINGUPState extends State<SINGUP> {
         height: double.infinity,
 
         // Background gradient
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
@@ -37,10 +37,10 @@ class _SINGUPState extends State<SINGUP> {
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(25),
+              padding: EdgeInsets.all(25),
 
               child: ConstrainedBox(
-                constraints: const BoxConstraints(
+                constraints: BoxConstraints(
                   maxWidth: 500,
                 ),
 
@@ -59,22 +59,22 @@ class _SINGUPState extends State<SINGUP> {
                           BoxShadow(
                             color: Colors.black.withOpacity(0.2),
                             blurRadius: 15,
-                            offset: const Offset(0, 5),
+                            offset: Offset(0, 5),
                           ),
                         ],
                       ),
 
-                      child: const Icon(
+                      child: Icon(
                         Icons.home_work_rounded,
                         size: 45,
                         color: Color(0xFF008FA3),
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
 
                     // Application Name
-                    const Text(
+                    Text(
                       "Property Manager",
                       style: TextStyle(
                         color: Colors.white,
@@ -84,9 +84,9 @@ class _SINGUPState extends State<SINGUP> {
                       textAlign: TextAlign.center,
                     ),
 
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
 
-                    const Text(
+                    Text(
                       "Rental Management System",
                       style: TextStyle(
                         color: Colors.white,
@@ -95,9 +95,9 @@ class _SINGUPState extends State<SINGUP> {
                       ),
                     ),
 
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
 
-                    const Text(
+                    Text(
                       "Create your account to manage your rental properties.",
                       style: TextStyle(
                         color: Colors.white70,
@@ -106,12 +106,12 @@ class _SINGUPState extends State<SINGUP> {
                       textAlign: TextAlign.center,
                     ),
 
-                    const SizedBox(height: 30),
+                    SizedBox(height: 30),
 
                     // Registration Card
                     Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.all(25),
+                      padding: EdgeInsets.all(25),
 
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -119,9 +119,9 @@ class _SINGUPState extends State<SINGUP> {
 
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
+                            color: Colors.black,
                             blurRadius: 20,
-                            offset: const Offset(0, 10),
+                            offset: Offset(0, 10),
                           ),
                         ],
                       ),
@@ -133,22 +133,22 @@ class _SINGUPState extends State<SINGUP> {
                             width: 90,
                             height: 90,
 
-                            decoration: const BoxDecoration(
+                            decoration: BoxDecoration(
                               color: Color(0xFFE0F7FA),
                               shape: BoxShape.circle,
                             ),
 
-                            child: const Icon(
+                            child: Icon(
                               Icons.person_add_rounded,
                               size: 50,
                               color: Color(0xFF008FA3),
                             ),
                           ),
 
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20),
 
                           // Registration Title
-                          const Text(
+                          Text(
                             "Create Account",
                             style: TextStyle(
                               fontSize: 26,
@@ -157,9 +157,9 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 5),
+                          SizedBox(height: 5),
 
-                          const Text(
+                          Text(
                             "Register to manage your rental properties",
                             style: TextStyle(
                               color: Colors.grey,
@@ -168,10 +168,10 @@ class _SINGUPState extends State<SINGUP> {
                             textAlign: TextAlign.center,
                           ),
 
-                          const SizedBox(height: 30),
+                          SizedBox(height: 30),
 
                           // Full Name
-                          const Align(
+                          Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Full Name",
@@ -183,13 +183,13 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 8),
+                          SizedBox(height: 8),
 
                           TextField(
                             decoration: InputDecoration(
                               hintText: "Enter your full name",
 
-                              prefixIcon: const Icon(
+                              prefixIcon: Icon(
                                 Icons.person_outline,
                                 color: Color(0xFF008FA3),
                               ),
@@ -212,7 +212,7 @@ class _SINGUPState extends State<SINGUP> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.circular(15),
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0xFF008FA3),
                                   width: 2,
                                 ),
@@ -220,10 +220,10 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20),
 
                           // Email
-                          const Align(
+                          Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Email",
@@ -235,7 +235,7 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 8),
+                          SizedBox(height: 8),
 
                           TextField(
                             keyboardType:
@@ -244,7 +244,7 @@ class _SINGUPState extends State<SINGUP> {
                             decoration: InputDecoration(
                               hintText: "Enter your email",
 
-                              prefixIcon: const Icon(
+                              prefixIcon: Icon(
                                 Icons.email_outlined,
                                 color: Color(0xFF008FA3),
                               ),
@@ -267,7 +267,7 @@ class _SINGUPState extends State<SINGUP> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.circular(15),
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0xFF008FA3),
                                   width: 2,
                                 ),
@@ -275,10 +275,10 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20),
 
                           // Username
-                          const Align(
+                          Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Username",
@@ -290,13 +290,13 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 8),
+                          SizedBox(height: 8),
 
                           TextField(
                             decoration: InputDecoration(
                               hintText: "Choose a username",
 
-                              prefixIcon: const Icon(
+                              prefixIcon: Icon(
                                 Icons.account_circle_outlined,
                                 color: Color(0xFF008FA3),
                               ),
@@ -319,7 +319,7 @@ class _SINGUPState extends State<SINGUP> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.circular(15),
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0xFF008FA3),
                                   width: 2,
                                 ),
@@ -327,10 +327,10 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20),
 
                           // Password
-                          const Align(
+                          Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Password",
@@ -342,7 +342,7 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 8),
+                          SizedBox(height: 8),
 
                           TextField(
                             obscureText: _obscurePassword,
@@ -350,7 +350,7 @@ class _SINGUPState extends State<SINGUP> {
                             decoration: InputDecoration(
                               hintText: "Enter your password",
 
-                              prefixIcon: const Icon(
+                              prefixIcon: Icon(
                                 Icons.lock_outline,
                                 color: Color(0xFF008FA3),
                               ),
@@ -389,7 +389,7 @@ class _SINGUPState extends State<SINGUP> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.circular(15),
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0xFF008FA3),
                                   width: 2,
                                 ),
@@ -397,10 +397,10 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 20),
+                          SizedBox(height: 20),
 
                           // Confirm Password
-                          const Align(
+                          Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
                               "Confirm Password",
@@ -412,7 +412,7 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 8),
+                          SizedBox(height: 8),
 
                           TextField(
                             obscureText:
@@ -421,7 +421,7 @@ class _SINGUPState extends State<SINGUP> {
                             decoration: InputDecoration(
                               hintText: "Confirm your password",
 
-                              prefixIcon: const Icon(
+                              prefixIcon: Icon(
                                 Icons.lock_outline,
                                 color: Color(0xFF008FA3),
                               ),
@@ -460,7 +460,7 @@ class _SINGUPState extends State<SINGUP> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.circular(15),
-                                borderSide: const BorderSide(
+                                borderSide: BorderSide(
                                   color: Color(0xFF008FA3),
                                   width: 2,
                                 ),
@@ -468,7 +468,7 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 30),
+                          SizedBox(height: 30),
 
                           // Register Button
                           SizedBox(
@@ -482,7 +482,7 @@ class _SINGUPState extends State<SINGUP> {
 
                               style: ElevatedButton.styleFrom(
                                 backgroundColor:
-                                    const Color(0xFF008FA3),
+                                    Color(0xFF008FA3),
 
                                 foregroundColor: Colors.white,
 
@@ -494,7 +494,7 @@ class _SINGUPState extends State<SINGUP> {
                                 ),
                               ),
 
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.center,
 
@@ -519,7 +519,7 @@ class _SINGUPState extends State<SINGUP> {
                             ),
                           ),
 
-                          const SizedBox(height: 25),
+                          SizedBox(height: 25),
 
                           // Login
                           Row(
@@ -527,7 +527,7 @@ class _SINGUPState extends State<SINGUP> {
                                 MainAxisAlignment.center,
 
                             children: [
-                              const Text(
+                              Text(
                                 "Already have an account? ",
                                 style: TextStyle(
                                   color: Colors.grey,
@@ -539,7 +539,7 @@ class _SINGUPState extends State<SINGUP> {
                                   Get.toNamed("/");
                                 },
 
-                                child: const Text(
+                                child: Text(
                                   "Login",
                                   style: TextStyle(
                                     color: Color(0xFF008FA3),
@@ -553,20 +553,20 @@ class _SINGUPState extends State<SINGUP> {
                       ),
                     ),
 
-                    const SizedBox(height: 25),
+                    SizedBox(height: 25),
 
                     // Footer
-                    const Text(
-                      "© 2026 Property Manager",
+                    Text(
+                      "2026 Property Manager",
                       style: TextStyle(
                         color: Colors.white70,
                         fontSize: 13,
                       ),
                     ),
 
-                    const SizedBox(height: 5),
+                    SizedBox(height: 5),
 
-                    const Text(
+                    Text(
                       "Smart • Simple • Reliable Property Management",
                       style: TextStyle(
                         color: Colors.white60,
